@@ -1,0 +1,17 @@
+<app-fieldset [legend]="'Details of the home institution'">
+
+  <div class="col-md-5 mt-1" *ngIf="!homeInstitutionName && !homeInstitutionCountry">
+    <ngx-skeleton-loader count="4" appearence="line"></ngx-skeleton-loader>
+  </div>
+
+  <div class="col-md-12 mt-1" *ngIf="homeInstitutionName">
+    <label class="form-label">Official name of the home institution</label>
+    <p class="fst-italic">{{homeInstitutionName}}</p>
+  </div>
+
+  <div class="col-md-12 mt-1" *ngIf="homeInstitutionCountry">
+    <label class="form-label">Country</label>
+    <p class="fst-italic">{{homeInstitutionCountry}}</p>
+  </div>
+
+</app-fieldset>

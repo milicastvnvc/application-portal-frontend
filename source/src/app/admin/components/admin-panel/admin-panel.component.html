@@ -1,0 +1,12 @@
+<div class="card-title dropdown">
+  <h5 class="admin-panel-heading text-start fw-light fs-3 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{submitted? 'Submitted' : 'Unlocked'}} Applications</h5>
+
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item fs-6" [class.active]="submitted" (click)="setTab(true)"><i class="bi bi-clipboard-check pe-2"></i>Submitted Applications</a></li>
+    <li><a class="dropdown-item fs-6" [class.active]="!submitted" (click)="setTab(false)"><i class="bi bi-unlock pe-2"></i>Unlocked Applications</a></li>
+  </ul>
+</div>
+
+<app-users-applications [submitted]="submitted">
+</app-users-applications>
+

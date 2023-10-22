@@ -1,0 +1,44 @@
+<app-main-card [title]="'New Application'">
+
+  <form [formGroup]="applicationFormGroup" (ngSubmit)="onSubmit()">
+
+    <fieldset class="border mt-2 p-3 pb-5 row g-3">
+      <legend class="float-none w-auto px-2 text-bold text-primary">Eligibility questions</legend>
+
+      <div class="select col-md-6">
+        <label for="mobilitySelect" class="form-label fw-bold">Type of mobility</label>
+        <select id="mobilitySelect" formControlName="mobility_id" class="form-select" (change)="changeMobility($event)">
+          <option value="" selected>Select type of mobility</option>
+          <option *ngFor="let type of mobilities" [value]="type.id">
+            {{type.name}} ({{type.description}})
+          </option>
+          <option [value]="otherMobilityConst">Other (Please specify)</option>
+        </select>
+      </div>
+
+      <div class="select col-md-6">
+        <label for="homeSelect" class="form-label fw-bold">Home institution:</label>
+        <select id="homeSelect" class="form-select" formControlName="home_institution_id"
+          (change)="changeHomeInstitution($event)">
+          <option value="">Select home institution</option>
+          <option *ngFor="let institution of homeInstitutions" [value]="institution.id">
+            {{institution.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6" [ngStyle]="{'display': mobility.value === otherMobilityConst ? 'block' : 'none' }">
+        <label for="other_mobility" class="form-label fw-bold">Specify mobility:</label>
+        <input type="text" class="form-control" id="other_mobility" formControlName="other_mobility"
+          [ngClass]="{ 'is-invalid': submitted && f['other_mobility'].errors }">
+      </div>
+
+    </fieldset>
+
+    <app-submit-button [buttonText]="'Save'" [isDisabled]="applicationFormGroup.invalid">
+      <i class="bi bi-check-lg pe-2"></i>
+    </app-submit-button>
+
+  </form>
+
+</app-main-card>

@@ -1,0 +1,43 @@
+<div class="card-body mt-2 p-0">
+  <div class="row">
+    <div class="col-lg-3 log-sm-3 mt-3">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search user" aria-label="user" [(ngModel)]="searchKey"
+          (keyup.enter)="search()">
+        <button class="btn btn-primary" type="button" id="search-button" (click)="search()"><i
+            class="bi bi-search"></i></button>
+      </div>
+
+    </div>
+    <div class="col-lg-2 log-sm-2 mt-3">
+      <select class="form-select" aria-label="Default select example" (change)="changeMobility($event)">
+        <option value="" selected>All mobilities</option>
+        <option *ngFor="let type of mobilities" [value]="type.id">{{type.name}} ({{type.description}})</option>
+        <option [value]="'other'">Other</option>
+      </select>
+    </div>
+
+    <div class="col-lg-3 log-sm-3 mt-3">
+      <select class="form-select" aria-label="Default select example" (change)="changeHomeInstitution($event)">
+        <option value="" selected>All home institutions</option>
+        <option *ngFor="let institution of homeInstitutions" [value]="institution.id">{{institution.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <div class="w-100 m-5" *ngIf="!paginatedResult">
+      <ngx-skeleton-loader count="1" appearence="line"></ngx-skeleton-loader>
+    </div>
+
+    <p class="text-secondary text-center m-5" *ngIf="paginatedResult && !paginatedResult.data.length">
+      There are no {{submitted? 'submitted' : 'unlocked'}} applications
+    </p>
+
+    <app-applications-table *ngIf="paginatedResult && paginatedResult.data.length" [applications]="paginatedResult.data"
+      [totalItems]="paginatedResult.total" (pageChangeEmitter)="pageChangeEvent($event)"
+      [currentPage]="currentPage"></app-applications-table>
+  </div>
+
+</div>

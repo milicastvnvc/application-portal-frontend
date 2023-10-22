@@ -1,0 +1,30 @@
+<app-main-card
+  [title]="'Application Form'"
+  [subtitle]="'Personal details'"
+  [isAdmin]="isAdmin"
+  [application_id]="application?.id" [form_name]="this.formInfo.id"
+  [headerText]="isAdmin && application != undefined ? application.user.email : ''">
+
+  <form class="form-1-box" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+    <app-applicant-details [formGroup]="formGroup" [submitted]="submitted"
+      [personalDetails]="personalDetails"></app-applicant-details>
+
+    <app-permanent-address [formGroup]="formGroup" [submitted]="submitted"
+      [personalDetails]="personalDetails"></app-permanent-address>
+
+    <app-contact-details [formGroup]="formGroup" [submitted]="submitted"
+      [personalDetails]="personalDetails"></app-contact-details>
+
+    <app-additional-information [formGroup]="formGroup" [submitted]="submitted"
+      [personalDetails]="personalDetails"></app-additional-information>
+
+    <app-submit-button [isDisabled]="!formGroup.dirty" [buttonText]="'Save'">
+      <i class="bi bi-check-lg pe-2"></i>
+    </app-submit-button>
+
+  </form>
+
+  <app-back-link [route]="['/application-data', applicationId]" [isFormDirty]="formGroup.dirty"></app-back-link>
+
+</app-main-card>

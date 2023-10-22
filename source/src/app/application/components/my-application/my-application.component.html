@@ -1,0 +1,31 @@
+<div class="card border-0 shadow rounded-3 my-application-card">
+  <div class="card-body p-4 p-sm-5">
+    <div class="row text-center">
+
+      <div class="col-sm-12 col-lg-2 border-end d-flex align-items-center justify-content-center">
+        <h5 class="card-title text-start fw-light">Application #{{id}}</h5>
+      </div>
+
+      <div class="col-sm-12 col-lg-3 border-end">
+        <h5 class="fw-normal">Home Institution:</h5>
+        <h6 class="fw-medium text-primary">{{homeInstitution}}</h6>
+      </div>
+
+      <div class="col-sm-12 col-lg-3 border-end">
+        <h5 class="fw-normal">Mobility:</h5>
+        <h6 class="fw-medium text-primary" [title]="mobility">{{mobility | truncate:[50, '...'] }}</h6>
+      </div>
+
+      <div class="col-sm-12 col-lg-2 border-end">
+        <h5 class="fw-normal">Date created:</h5>
+        <h6 class="fw-medium text-primary">{{dateCreated | date}}</h6>
+      </div>
+
+      <div class="col-sm-12 col-lg-2">
+        <h5 class="fw-normal">Status:</h5>
+        <h6 class="fw-medium" [ngClass]="isSubmitted ? 'text-success' : 'text-warning'">{{isSubmitted ? 'Submitted' : 'In Progress'}}</h6>
+      </div>
+
+    </div>
+  </div>
+</div>

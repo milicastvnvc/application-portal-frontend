@@ -1,0 +1,50 @@
+<app-fieldset [legend]="'Permanent address'" [formGroup]="formGroup">
+
+  <p class="text-secondary m-0 mb-4">
+    This address will be used for sending all official documents in the event of selection. Please provide complete and
+    accurate information for the address. Any issues related to sending documents due to incorrect or insufficient
+    information provided in this section, necessitating the need for document resending, will result in the candidate
+    being responsible for covering the resulting expenses.
+    <span class="fw-bold">The address must not be translated.</span>
+  </p>
+
+  <div class="row mb-3">
+    <label for="street" class="col-sm-5 col-lg-2 col-form-label">Street and number</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="text" class="form-control" id="street" formControlName="street"
+        [ngClass]="{ 'is-invalid': submitted && f['street'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['street'].errors">Street is required field.</small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="postcode" class="col-sm-5 col-lg-2 col-form-label">Postcode</label>
+    <div class="col-sm-5 col-lg-3">
+      <input type="text" class="form-control" id="postcode" formControlName="postcode"
+        [ngClass]="{ 'is-invalid': submitted && f['postcode'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['postcode'].errors">
+        Postcode is required field and should only contain numbers (additionally letters, spaces or hyphens).</small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="city" class="col-sm-5 col-lg-2 col-form-label">City</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="text" class="form-control" id="city" formControlName="city"
+        [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['city'].errors">City is required field.</small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="country" class="col-sm-5 col-lg-2  col-form-label">Country</label>
+    <div class="col-sm-7 col-lg-5">
+      <select class="form-select" id="country" formControlName="country"
+        [ngClass]="{ 'is-invalid': submitted && f['country'].errors }">
+        <option value="" selected>(Select option)</option>
+        <option value="1">Serbia</option>
+      </select>
+    </div>
+  </div>
+
+</app-fieldset>

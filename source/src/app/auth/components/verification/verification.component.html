@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-9 col-lg-12 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <div *ngIf="showError" class="d-flex flex-column align-items-center">
+            <h1 class="text-danger mb-5">{{ message }}</h1>
+            <button *ngIf="showResendButton" (click)="resendVerificationCode()" class="btn btn-primary fw-bold mb-5"
+              [disabled]="disableVerificationButton">Resend verification code</button>
+          </div>
+
+          <div *ngIf="showSuccess" class="d-flex flex-column align-items-center">
+            <h1 class="text-success mb-5">{{ message }}</h1>
+            <button class="btn btn-primary fw-bold mb-5" routerLink="/login">Go to login page</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

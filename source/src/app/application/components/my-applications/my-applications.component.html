@@ -1,0 +1,58 @@
+<div class="d-flex row align-items-center">
+  <h5 class="card-title col-lg-10 fw-light fs-2">My Applications</h5>
+  <button class="btn btn-primary col-lg-2 col-sm-2 fw-bold p-3" routerLink="/new-application">
+    <i class="bi bi-plus-lg pe-2"></i>
+    New Application
+  </button>
+</div>
+
+<div class="d-flex justify-content-start align-items-center mt-2">
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" id="inProgress" [(ngModel)]="inProgressCheckbox">
+    <label class="form-check-label" for="inProgress">In Progress</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" id="submitted" [(ngModel)]="submittedCheckbox">
+    <label class="form-check-label" for="submitted">Submitted</label>
+  </div>
+</div>
+
+<div class="card mt-3">
+
+  <div class="w-25 m-5" *ngIf="!applications">
+    <ngx-skeleton-loader count="1" appearence="line"></ngx-skeleton-loader>
+  </div>
+
+  <p class="text-secondary text-center m-5" *ngIf="applications && !applications.length">
+    There are no applications you applied for
+  </p>
+
+  <ul class="list-group list-group-flush" *ngIf="applications && applications.length">
+
+    <p class="text-secondary text-center m-5" *ngIf="(!submittedCheckbox && !inProgressCheckbox)">
+      No Applications
+    </p>
+
+    <p class="text-secondary text-center m-5" *ngIf="(submittedCheckbox && !inProgressCheckbox && !submittedLength)">
+      No Applications
+    </p>
+
+    <p class="text-secondary text-center m-5" *ngIf="(!submittedCheckbox && inProgressCheckbox && !inProcessLength)">
+      No Applications
+    </p>
+
+    <ng-container *ngFor="let application of applications">
+      <li *ngIf="((application.submitted_at && submittedCheckbox) || (!application.submitted_at && inProgressCheckbox))"
+        class="list-group-item p-2" [routerLink]="['/application-data', application.id]">
+
+        <app-my-application [id]="application.id"
+          [mobility]="application.mobility ? application.mobility.name + ' (' + application.mobility.description + ')' :  'Other (' +application.other_mobility.description + ')'"
+          [homeInstitution]="application.home_institution.name" [dateCreated]="application.created_at"
+          [isSubmitted]="application.submitted_at != null">
+        </app-my-application>
+
+      </li>
+    </ng-container>
+  </ul>
+
+</div>

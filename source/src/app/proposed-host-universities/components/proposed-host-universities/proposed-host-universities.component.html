@@ -1,0 +1,95 @@
+<app-main-card [title]="'Application Form'" [subtitle]="'Proposed host universities'"
+[isAdmin]="isAdmin"
+[application_id]="application?.id" [form_name]="this.formInfo.id"
+[headerText]="isAdmin && application != undefined ? application.user.email : ''">
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <app-fieldset [formGroup]="formGroup">
+
+      <fieldset class="border-top p-2 pb-4">
+        <legend class="float-none w-auto px-2">First choice host institution</legend>
+
+        <div class="col-md-8 col-sm-10">
+          <label for="host_institution" class="col-form-label">
+            Official name of the first host university
+          </label>
+          <div class="col-sm-10 col-lg-8">
+            <input type="text" class="form-control" id="host_institution" formControlName="host_institution"
+              [ngClass]="{ 'is-invalid': submitted && f['host_institution'].errors }">
+            <small class="text-danger" *ngIf="submitted && f['host_institution'].errors">
+              Host institution name is required field.<br>
+            </small>
+          </div>
+        </div>
+
+        <div class="col-md-8 col-sm-10">
+          <label for="department" class="col-form-label">Department/Study program</label>
+          <div class="col-sm-10 col-lg-8">
+            <input type="text" class="form-control" id="department" formControlName="department"
+              [ngClass]="{ 'is-invalid': submitted && f['department'].errors }">
+            <small class="text-danger" *ngIf="submitted && f['department'].errors">
+              Department/Study is required field.
+            </small>
+          </div>
+        </div>
+        <a class="link-primary collapse-link" *ngIf="showSecondChoiceLink && !isAdmin" [class.disabled-link]="isApplicationSubmitted" (click)="showSecondChoice()">
+          <i class="bi bi-plus-lg pe-2"></i>Add Second choice host
+          institution
+        </a>
+      </fieldset>
+
+      <fieldset class="collapse border-top border-bottom p-2 pb-4 mb-2" id="collapseSecondChoice">
+        <legend class="float-none w-auto px-2">Second choice host institution</legend>
+
+        <a class="link-primary collapse-link" *ngIf="!isAdmin" [class.disabled-link]="isApplicationSubmitted" (click)="hideSecondChoice()">
+          <i class="bi bi-x-lg pe-2"></i>Remove Second choice host
+          institution
+        </a>
+
+        <div class="col-md-8 col-sm-10">
+          <label for="host_institution_second" class="col-form-label">Official name of the second host
+            university</label>
+          <div class="col-sm-10 col-lg-8">
+            <input type="text" class="form-control" id="host_institution_second"
+              formControlName="host_institution_second"
+              [ngClass]="{ 'is-invalid': submitted && f['host_institution_second'].errors }">
+            <small class="text-danger" *ngIf="submitted && f['host_institution_second'].errors">
+              Host institution name is missing.
+            </small>
+          </div>
+        </div>
+
+        <div class="col-md-8 col-sm-10">
+          <label for="department_second" class="col-form-label">Department/Study program</label>
+          <div class="col-sm-10 col-lg-8">
+            <input type="text" class="form-control" id="department_second" formControlName="department_second"
+              [ngClass]="{ 'is-invalid': submitted && f['department_second'].errors }">
+            <small class="text-danger" *ngIf="submitted && f['department_second'].errors">
+              Department/Study program is missing.
+            </small>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="select col-md-8 col-sm-10 m-0 mb-3">
+        <label for="semester" class="form-label">Semester</label>
+        <div class="col-sm-10 col-lg-8">
+          <select id="semester" formControlName="semester_id" class="form-select" (change)="changeSemester($event)"
+            [ngClass]="{ 'is-invalid': submitted && f['semester_id'].errors }">
+            <option value="" selected>Select semester</option>
+            <option *ngFor="let semester of activeSemesters" [value]="semester.id">{{semester.name}}</option>
+          </select>
+        </div>
+      </div>
+
+    </app-fieldset>
+
+    <app-submit-button [isDisabled]="!formGroup.dirty" [buttonText]="'Save'">
+      <i class="bi bi-check-lg pe-2"></i>
+    </app-submit-button>
+
+  </form>
+
+  <app-back-link [route]="['/application-data', applicationId]" [isFormDirty]="formGroup.dirty"></app-back-link>
+
+</app-main-card>

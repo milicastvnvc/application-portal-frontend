@@ -1,0 +1,63 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "./variables";
+
+$border-color: $gray-400;
+
+$container-max-widths: (
+  sm: 800px,
+  md: 900px,
+  lg: 1000px,
+  xl: 1140px,
+  xxl: 1420px
+);
+
+$form-label-font-weight: $font-weight-semibold;
+$input-border-color: $gray-500;
+$form-select-border-color: $gray-500;
+$form-check-input-checked-bg-color: $primary-color;
+$form-check-input-border: $border-width solid $gray-500;
+
+$theme-colors: map-merge($theme-colors, ("primary": $primary-color));
+$table-variants: map-merge($theme-colors, ("primary": $background-color));
+
+
+textarea:hover,
+input[type]:hover,
+select:hover,
+.uneditable-input:hover {
+  background-color: $background-color;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(104, 207, 239, 0.6);
+  outline: 0 none;
+}
+
+input:checked:hover {
+  background-color: $primary-color;
+  border-color: $gray-500;
+}
+// textarea,
+// input[type],
+// select {
+//   border-color: $gray-borders;
+// }
+
+@import "bootstrap";
+
+// * {
+//   color: #293736;
+// }
+
+body {
+  background-color: $background-color;
+}
+
+legend {
+  font-size: 1.3rem;
+  line-height: 30px;
+  text-transform: uppercase;
+  color: $gray-text;
+}
+
+::-ms-reveal {
+  display: none;
+}

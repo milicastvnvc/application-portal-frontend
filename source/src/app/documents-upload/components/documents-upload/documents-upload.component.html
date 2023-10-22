@@ -1,0 +1,65 @@
+<app-main-card [title]="'Application Form'"
+  [subtitle]="'Documents upload'"
+  [isAdmin]="isAdmin"
+  [application_id]="application?.id" [form_name]="this.formInfo.id"
+  [headerText]="isAdmin && application != undefined ? application.user.email : ''">
+
+  <p class="text-secondary m-0 mb-4">
+    If a document is marked as "Required", the candidate must upload it in order for the application to be complete. If
+    a candidate fails to do so, the application will be immediately rejected without any possibility of appeal. Each
+    uploaded document must have a maximum size of 10 MB, except for video recordings, which must have a maximum size of
+    200 MB.
+  </p>
+
+  <div class="card filled-legend w-50 note mb-3">
+    <div class="card-body">
+      <h5 class="card-title text-start fw-light">Note</h5>
+      <p>Each field accepts only one document. If you wish to upload more than one document in the same field,
+        first you have to merge those documents into a single one.</p>
+    </div>
+  </div>
+
+  <p class="text-secondary mb-3">Applicants must upload the following documents:</p>
+  <table class="table table-responsive table-hover table-bordered align-middle text-center">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col" class="col-lg-1 col-sm-1"></th>
+        <th scope="col" class="col-lg-4 col-sm-3">Document</th>
+        <th *ngIf="!isAdmin" scope="col" class="col-lg-5 col-sm-7">Upload</th>
+        <th scope="col" class="col-lg-2 col-sm-1">Uploaded document</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <div class="w-100" *ngIf="!documents.length">
+        <ngx-skeleton-loader count="50" appearence="line"></ngx-skeleton-loader>
+      </div>
+
+      <ng-container *ngIf="documents.length">
+        <app-document-row *ngFor="let document of documents; let i = index" class="d-table-row border"
+          [document]="document" (uploadEvent)="uploadDocument($event)" [isDisabled]="isApplicationSubmitted"
+          [uploadedDocument]="uploadedDocuments[i]" [isAdmin]="isAdmin">
+        </app-document-row>
+      </ng-container>
+
+    </tbody>
+  </table>
+
+  <app-back-link [route]="['/application-data', applicationId]" [isFormDirty]="false"></app-back-link>
+
+  <!-- <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div #toastElement class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+      <div class="toast-header">
+        <strong class="me-auto">Video Upload Progress</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+          aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</app-main-card>

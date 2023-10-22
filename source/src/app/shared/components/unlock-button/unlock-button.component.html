@@ -1,0 +1,14 @@
+<div *ngIf="isUnlocked != undefined">
+  <span class="fst-italic me-3">{{isUnlocked? 'This form is currently unlocked.' : 'This form is locked.'}}</span>
+  <button type="button" class="btn" [class.btn-success]="isUnlocked" [class.btn-secondary]="!isUnlocked"
+    data-bs-toggle="modal" data-bs-target="#myModal">
+    <i *ngIf="!isUnlocked" class="bi bi-unlock pe-2"></i>
+    <i *ngIf="isUnlocked" class="bi bi-lock pe-2"></i>
+    {{ isUnlocked ? 'Lock' : 'Unlock' }}
+  </button>
+</div>
+
+<app-modal
+  [modalBodyText]="'Are you sure you want to take this action?'"
+  [modalHeaderText]="'Please confirm'"
+  (confirmEvent)="closeModal()"></app-modal>

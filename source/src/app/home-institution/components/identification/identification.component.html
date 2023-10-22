@@ -1,0 +1,111 @@
+<app-fieldset
+  [legend]="'Identification of the entity/person supporting your application at your home institution'"
+  [formGroup]="formGroup">
+
+  <div class="row mb-3">
+    <label for="faculty" class="col-sm-5 col-lg-3 col-form-label">Faculty/School</label>
+    <div class="col-sm-7 col-lg-6">
+      <input type="text" class="form-control" id="faculty" formControlName="faculty"
+        [ngClass]="{ 'is-invalid': submitted && f['faculty'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['faculty'].errors">Faculty is required field.</small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="department" class="col-sm-5 col-lg-3 col-form-label">Department</label>
+    <div class="col-sm-7 col-lg-6">
+      <input type="text" class="form-control" id="department" formControlName="department"
+        [ngClass]="{ 'is-invalid': submitted && f['department'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['department'].errors">Department is required field.</small>
+    </div>
+  </div>
+
+  <div *ngIf="mobilityType !== undefined && (mobilityType == mTypes.Student || mobilityType == mTypes.Traineeship)">
+
+    <div class="row mb-3">
+      <label for="current_grade" class="col-sm-5 col-lg-3 col-form-label">Current Grade-Point-Average</label>
+      <div class="col-sm-7 col-lg-3">
+        <input type="number" class="form-control" id="current_grade" formControlName="current_grade"
+          [ngClass]="{ 'is-invalid': submitted && f['current_grade'].errors }">
+        <small class="text-danger" *ngIf="submitted && f['current_grade'].errors">
+          Current Grade is required field and should be number.
+        </small>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="current_grade" class="col-sm-5 col-lg-3 col-form-label">Are you MA or PhD student?</label>
+      <div class="col-sm-7 col-lg-3">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="student_radio" id="yes-radio"
+          formControlName="student_radio" [value]="binaryQuestion.Yes">
+          <label class="form-check-label" for="yes-radio">Yes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="student_radio" id="no-radio"
+          formControlName="student_radio" [value]="binaryQuestion.No" (change)="changePreviousGPA()">
+          <label class="form-check-label" for="no-radio">No</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3" *ngIf="f['student_radio'].value == binaryQuestion.Yes">
+      <label for="previous_gpa" class="col-sm-5 col-lg-3 col-form-label">Previous GPA <small>(for MA and PhD
+          students)</small></label>
+      <div class="col-sm-7 col-lg-3">
+        <input type="number" class="form-control" id="previous_gpa" formControlName="previous_gpa"
+          [ngClass]="{ 'is-invalid': submitted && f['previous_gpa'].errors }">
+        <small class="text-danger" *ngIf="submitted && f['previous_gpa'].errors">
+          Previous GPA is required field and should be number.
+        </small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mb-3">
+    <label for="study_program" class="col-sm-5 col-lg-3 col-form-label">Study program</label>
+    <div class="col-sm-7 col-lg-6">
+      <input type="text" class="form-control" id="study_program" formControlName="study_program"
+        [ngClass]="{ 'is-invalid': submitted && f['study_program'].errors }">
+      <small class="text-secondary">
+        If applicable, if not, type the name of your department again
+      </small>
+      <small class="text-danger" *ngIf="submitted && f['study_program'].errors">
+        <br>Study program is required field.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="responsible_person" class="col-sm-5 col-lg-3 col-form-label"> Name of the responsible person</label>
+    <div class="col-sm-7 col-lg-6">
+      <input type="text" class="form-control" id="responsible_person" formControlName="responsible_person"
+        [ngClass]="{ 'is-invalid': submitted && f['responsible_person'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['responsible_person'].errors">
+        Name of the responsible person is required field and should only contain letters.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="email_responsible_person" class="col-sm-5 col-lg-3 col-form-label"> Email of the responsible
+      person</label>
+    <div class="col-sm-7 col-lg-6">
+      <input type="email" class="form-control" id="email_responsible_person" formControlName="email_responsible_person"
+        [ngClass]="{ 'is-invalid': submitted && f['email_responsible_person'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['email_responsible_person'].errors">
+        Email of the responsible person is required field. Please enter valid email format.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="other_contact" class="col-sm-5 col-lg-3 col-form-label">Other contact (Optional)</label>
+    <div class="col-sm-7 col-lg-6">
+      <input type="text" class="form-control" id="other_contact" formControlName="other_contact"
+        [ngClass]="{ 'is-invalid': submitted && f['other_contact'].errors }">
+    </div>
+  </div>
+
+</app-fieldset>

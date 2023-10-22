@@ -1,0 +1,13 @@
+<app-main-card>
+
+  <div *ngIf="isAdmin !== undefined">
+
+    <app-my-applications *ngIf="!isAdmin">
+    </app-my-applications>
+
+    <app-admin-panel *ngIf="isAdmin">
+    </app-admin-panel>
+
+  </div>
+
+</app-main-card>

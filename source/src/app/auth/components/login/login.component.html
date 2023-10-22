@@ -1,0 +1,46 @@
+<app-auth-card [title]="'Sign In'">
+
+  <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingInput" formControlName="email" placeholder="name@example.com"
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+      <label for="floatingInput">Email address</label>
+    </div>
+
+    <div class="mb-2 ">
+      <div class="form-floating d-flex align-items-center">
+        <input toogle-password type="password" class="form-control" id="floatingPassword" formControlName="password"
+          placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <small class="text-danger" *ngIf="submitted && f['password'].errors">Password should contain at least 6
+        characters.</small>
+    </div>
+
+
+    <div class="form-group d-flex justify-content-end">
+      <div class="w-100 mb-3 text-end">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+      </div>
+    </div>
+
+    <div class="d-grid mb-2">
+      <button class="btn btn-primary btn-login text-uppercase fw-bold " type="submit">
+        Sign in</button>
+    </div>
+
+    <!-- <div id="btn-google" class="d-grid justify-content-center mb-1">
+            </div> -->
+    <hr class="my-4">
+    <div class="text-center mt-4">
+      <span class="txt1">
+        New applicant?
+      </span>
+      <a routerLink="/register">
+        Create a new user
+      </a>
+    </div>
+  </form>
+
+
+</app-auth-card>

@@ -1,0 +1,26 @@
+<div class="caption position-absolute end-0 mt-5 me-5" appMobileScreen [mobileScreen]="false">
+  <div class="card filled-legend">
+    <div class="card-body">
+      <h5 class="card-title text-start fw-light">Caption</h5>
+      <app-caption-body></app-caption-body>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-secondary position-absolute top-0 end-0 mt-5 me-2" appMobileScreen
+  [mobileScreen]="true" data-bs-toggle="modal" data-bs-target="#exampleModal">See caption</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Caption</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-caption-body></app-caption-body>
+      </div>
+    </div>
+  </div>
+</div>

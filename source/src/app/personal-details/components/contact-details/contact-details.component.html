@@ -1,0 +1,42 @@
+<app-fieldset [legend]="'Contact details'" [formGroup]="formGroup">
+
+  <p class="text-secondary m-0 mb-4"> All communication regarding the submission of applications and notification of
+    selection results will be conducted exclusively via email. If it is impossible to contact the applicant through this
+    method, the application will not be considered valid, and it will be immediately excluded from the project, without
+    any possibility of appeal.
+  </p>
+
+  <div class="row mb-3">
+    <label for="telephone" class="col-sm-5 col-lg-2 col-form-label">Telephone</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="text" class="form-control" id="telephone" formControlName="telephone"
+        [ngClass]="{ 'is-invalid': submitted && f['telephone'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['telephone'].errors">Telephone number is required and should only
+        contain numbers or special charachters</small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="email" class="col-sm-5 col-lg-2 col-form-label">Primary email</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="email" class="form-control" id="email" formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['email'].errors">Email is required. Please enter valid email
+        format.</small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="alternative-email" class="col-sm-5 col-lg-2 col-form-label">Alternative email (optional)</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="email" class="form-control" id="alternative-email" formControlName="alternative_email"
+        [ngClass]="{ 'is-invalid': submitted && f['alternative_email'].errors }">
+    </div>
+  </div>
+
+  <p class="text-secondary m-0 mb-4">
+    Please do not include the email address of a fellow colleague also applying to this project so that the selection
+    results cannot be send to third parties.
+  </p>
+
+</app-fieldset>

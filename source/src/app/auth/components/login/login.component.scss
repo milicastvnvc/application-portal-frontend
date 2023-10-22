@@ -1,0 +1,22 @@
+@import "../../../../variables";
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+}
+
+// .btn-google {
+//   color: white !important;
+//   background-color: #ea4335;
+// }
+
+.google-logo {
+  background-color: white;
+  border-radius: 50%;
+}
+
+.form-floating:hover > label::after {
+  background-color: transparent;
+}
+

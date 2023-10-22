@@ -1,0 +1,74 @@
+<app-fieldset [legend]="'Applicant\'s personal details'" [formGroup]="formGroup">
+
+  <div class="row mb-3">
+    <label for="surname" class="col-sm-5 col-lg-2 col-form-label">Surname/Family name</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="text" class="form-control" id="surname" formControlName="surname"
+        [ngClass]="{ 'is-invalid': submitted && f['surname'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['surname'].errors">
+        Surname is required field and should only contain letters
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="forenames" class="col-sm-5 col-lg-2 col-form-label">Forenames/Given names</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="text" class="form-control" id="forenames" formControlName="fornames"
+        [ngClass]="{ 'is-invalid': submitted && f['fornames'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['fornames'].errors">
+        Forname is required field and should only contain letters.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="birth_date" class="col-sm-5 col-lg-2 col-form-label">Date of birth</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="date" class="form-control" id="birth_date" formControlName="birth_date"
+        [ngClass]="{ 'is-invalid': submitted && f['birth_date'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['birth_date'].errors">
+        Date of birth is required field. Please enter valid date in past.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="birth_place" class="col-sm-5 col-lg-2 col-form-label">Place of birth</label>
+    <div class="col-sm-7 col-lg-5">
+      <input type="text" class="form-control" id="birth_place" formControlName="birth_place"
+        [ngClass]="{ 'is-invalid': submitted && f['birth_place'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['birth_place'].errors">
+        Place of birth is required field.
+      </small>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="gender" class="col-sm-5 col-lg-2 col-form-label">Gender</label>
+    <div class="col-sm-7 col-lg-5">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="male" formControlName="gender"
+          [value]="genders.Male" [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }">
+        <label class="form-check-label" for="male">Male</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="female" formControlName="gender"
+          [value]="genders.Female" [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }">
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label for="passport" class="col-sm-5 col-lg-2 col-form-label">Passport no.</label>
+    <div class="col-sm-7 col-lg-3">
+      <input type="text" class="form-control" id="passport" formControlName="passport"
+        [ngClass]="{ 'is-invalid': submitted && f['passport'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['passport'].errors">
+        Passport number is required field. Please enter valid passport number format.
+      </small>
+    </div>
+  </div>
+
+</app-fieldset>

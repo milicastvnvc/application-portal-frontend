@@ -1,0 +1,31 @@
+<app-fieldset [legend]="'Additional information'" [formGroup]="formGroup">
+
+  <div class="col-md-12 mt-1">
+    <p class="text-secondary m-0 mb-4">
+      The Erasmus+ program propagates additional support for participants that belong to specific disadvantaged groups.
+      Please refer to the following
+      <a href="https://erasmusplus.rs/erazmus-program/ciljne-grupe-za-inkluziju-u-okviru-erazmus-plus-programa/"
+        target="_blank">LINK
+      </a> to see whether you are eligible for this type of support. Please note that
+      inclusive support is granted only to the selected candidates after submitting the
+      <span class="fw-bold">required</span> documents.</p>
+
+    <label for="disadvantaged-groups" class="form-label">Do you consider yourself as eligible for inclusive
+      support?</label>
+
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="disadvantaged" id="yes-option" [value]="disadvantaged.Yes"
+          formControlName="disadvantaged" [ngClass]="{ 'is-invalid': submitted && f['disadvantaged'].errors }">
+        <label class="form-check-label" for="yes-option">Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="disadvantaged" id="no-option" [value]="disadvantaged.No"
+          formControlName="disadvantaged" [ngClass]="{ 'is-invalid': submitted && f['disadvantaged'].errors }">
+        <label class="form-check-label" for="no-option">No</label>
+      </div>
+    </div>
+
+  </div>
+
+</app-fieldset>

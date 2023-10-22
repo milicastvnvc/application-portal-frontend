@@ -1,0 +1,60 @@
+<app-main-card [title]="'Application Form'" [subtitle]="'Motivation and added value'"
+[isAdmin]="isAdmin"
+[application_id]="application?.id" [form_name]="this.formInfo.id"
+[headerText]="isAdmin && application != undefined ? application.user.email : ''">
+
+  <p class="text-secondary">In this section, you are to briefly state your reasons and motivation for
+    participating in the Erasmus+ program.</p>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSumbit()">
+
+    <app-fieldset>
+
+      <div class="col-md-10 mb-3">
+        <label for="chosen_institution" class="form-label">Why have you chosen this specific
+          institution?<p class="text-secondary">(Min. 300 characters, Max. 1000 characters)</p></label>
+        <div class="col-sm-12">
+          <textarea class="form-control" id="chosen_institution" formControlName="chosen_institution"
+            [ngClass]="{ 'is-invalid': submitted && f['chosen_institution'].errors }"></textarea>
+          <div class="d-flex" [class.justify-content-end]="!f['chosen_institution'].errors || !submitted"
+            [class.justify-content-between]="f['chosen_institution'].errors && submitted">
+            <div *ngIf="f['chosen_institution'].errors && submitted" class="text-danger">
+              <span *ngIf="f['chosen_institution'].errors['minlength']">The minimum number of characters is 300</span>
+              <span *ngIf="f['chosen_institution'].errors['maxlength']">The maximum number of characters is 1000</span>
+            </div>
+            <span class="counter">{{chosen_institution.length}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-10 mb-3">
+        <label for="mobility_impact" class="form-label">Briefly describe the potential impact of this mobility
+          on your further development (career and education-wise). How will the skills and competences acquired
+          during mobility add value to your home institution/society/country?
+          <p class="text-secondary">(Min. 300 characters, Max. 1000 characters)</p>
+        </label>
+        <div class="col-sm-12">
+          <textarea class="form-control" id="mobility_impact" formControlName="mobility_impact"
+            [ngClass]="{ 'is-invalid': submitted && f['mobility_impact'].errors }"></textarea>
+          <div class="d-flex" [class.justify-content-end]="!f['mobility_impact'].errors || !submitted"
+            [class.justify-content-between]="f['mobility_impact'].errors && submitted">
+            <div *ngIf="f['mobility_impact'].errors && submitted" class="text-danger">
+              <span *ngIf="f['mobility_impact'].errors['minlength']">The minimum number of characters is 300</span>
+              <span *ngIf="f['mobility_impact'].errors['maxlength']">The maximum number of characters is 1000</span>
+            </div>
+            <span class="counter">{{mobility_impact.length}}</span>
+          </div>
+        </div>
+      </div>
+
+    </app-fieldset>
+
+    <app-submit-button [isDisabled]="!formGroup.dirty" [buttonText]="'Save'">
+      <i class="bi bi-check-lg pe-2"></i>
+    </app-submit-button>
+
+  </form>
+
+  <app-back-link [route]="['/application-data', applicationId]" [isFormDirty]="formGroup.dirty"></app-back-link>
+
+</app-main-card>

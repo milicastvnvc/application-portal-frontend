@@ -1,0 +1,35 @@
+<app-main-card
+  [title]="'Application Form'"
+  [subtitle]="'Home institution'"
+  [isAdmin]="isAdmin"
+  [application_id]="application?.id" [form_name]="this.formInfo.id"
+  [headerText]="isAdmin && application != undefined ? application.user.email : ''">
+
+  <p class="text-secondary m-0 mb-2">
+    The institution you are currently enrolled in, or the institution where you have finished your previous
+    studies (for recent graduates and employees).
+  </p>
+
+  <p class="text-secondary mt-1 mb-4">
+    * Must be an institution under the wing of the University of Kragujevac
+  </p>
+
+  <app-details-home-institution [homeInstitutionName]="homeInstitutionName"
+    [homeInstitutionCountry]="homeInstitutionCountry">
+  </app-details-home-institution>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+    <app-identification [formGroup]="formGroup" [submitted]="submitted" [homeInstitution]="homeInstitution"
+      [mobilityType]="mobilityType">
+    </app-identification>
+
+    <app-submit-button [isDisabled]="!formGroup.dirty" [buttonText]="'Save'">
+      <i class="bi bi-check-lg pe-2"></i>
+    </app-submit-button>
+
+  </form>
+
+  <app-back-link [route]="['/application-data', applicationId]" [isFormDirty]="formGroup.dirty"></app-back-link>
+
+</app-main-card>

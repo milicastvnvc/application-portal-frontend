@@ -1,0 +1,78 @@
+<app-main-card [title]="'Application Data'"
+[isAdmin]="isAdmin"
+[application_id]="applicationId"
+[headerText]="isAdmin && application != undefined ? application.user.email : ''">
+
+  <h5 class="text-start text-secondary">Doctorate (mobility)</h5>
+
+  <div class="ms-3 w-25">
+    <ngx-skeleton-loader *ngIf="!progress" count="6" appearance="line"></ngx-skeleton-loader>
+  </div>
+
+  <table class="table table-borderless align-middle" *ngIf="progress">
+    <thead>
+      <tr>
+        <th scope="col" class="col-lg-3 col-sm-7"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let constant of progressConstant">
+        <td class="d-flex align-items-center">
+          <img class="pe-2 progress-icon" src="{{ progress[constant.id] ? completed : not_completed }}">
+          <a class="link-primary" [routerLink]="[constant.route, applicationId]">{{constant.name}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-caption></app-caption>
+
+  <form [formGroup]="applicationFormGroup" (ngSubmit)="onSubmit()">
+
+    <div class="agreements mt-4">
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" value="" id="published_name" formControlName="published_name">
+        <label class="form-check-label" for="published_name">
+          I hereby declare that I have granted permission to have my name published on the website of the
+          project or in any other format for dissemination purposes related to the selection process.
+        </label>
+      </div>
+
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" value="" id="geniune_information"
+          formControlName="geniune_information">
+        <label class="form-check-label" for="geniune_information">
+          I declare, on my honor, that the information supplied by me in this application form is true and
+          correct, and that the documents uploaded are genuine.
+        </label>
+      </div>
+
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" value="" id="provide_documents"
+          formControlName="provide_documents">
+        <label class="form-check-label" for="provide_documents">
+          I declare that, as a candidate, I will need to provide all documents to support my eligibility for
+          this project. In case I fail to do so, my application will be automatically and immediately rejected.
+        </label>
+      </div>
+
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" value="" id="collect_personal_info"
+          formControlName="collect_personal_info">
+        <label class="form-check-label" for="collect_personal_info">
+          I hereby give my consent to the University of Kragujevac to collect and process my personal
+          information provided in the application documentation,
+          in accordance with the Law on Personal Data Protection.
+          More information is available
+          <a href="http://www.kg.ac.rs/doc/DataCollectionInfo.pdf" target="_blank">here.</a>
+        </label>
+      </div>
+    </div>
+
+    <app-submit-button [buttonText]="'Submit application'"
+      [isDisabled]="applicationFormGroup.invalid || !canSubmit"></app-submit-button>
+    <div class="">
+    </div>
+
+  </form>
+</app-main-card>

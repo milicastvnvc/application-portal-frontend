@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <table class="table table-hover table-bordered align-middle text-center">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col" class="col-lg-1 col-sm-1">#</th>
+        <th scope="col" class="col-lg-2 col-sm-2">User</th>
+        <th scope="col" class="col-lg-3 col-sm-3">Home Institution</th>
+        <th scope="col" class="col-lg-4 col-sm-5">Mobility</th>
+        <th scope="col" class="col-lg-2 col-sm-1">Date submitted</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let application of applications | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage,  totalItems: totalItems }"
+        [routerLink]="['/application-data', application.id]" class="application-row">
+
+        <td>{{application.id}}</td>
+        <th scope="row">
+          {{application.user.email}}
+        </th>
+        <td>{{application.home_institution.name}}</td>
+        <td>{{application.mobility? application.mobility.name + ' (' + application.mobility.description + ")": 'Other (' + application.other_mobility.description | truncate:[50, '...'] }}</td>
+        <td>{{application.submitted_at | date}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center">
+    <pagination-controls (pageChange)="onPageChange($event)" [maxSize]="maxPage"></pagination-controls>
+  </div>
+</div>
