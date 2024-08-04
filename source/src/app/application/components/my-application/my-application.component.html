@@ -23,7 +23,7 @@
 
       <div class="col-sm-12 col-lg-2">
         <h5 class="fw-normal">Status:</h5>
-        <h6 class="fw-medium" [ngClass]="isSubmitted ? 'text-success' : 'text-warning'">{{isSubmitted ? 'Submitted' : 'In Progress'}}</h6>
+        <app-application-status [status]="status"></app-application-status>
       </div>
 
     </div>

@@ -21,40 +21,38 @@ export class DocumentsUploadService {
   }
 
   createOrUpdate(createRequest: AddDocumentRequest): Observable<BaseResponse<any>> {
+    if (createRequest.document_name == videoDocument) {
+      return this.uploadVideo(createRequest);
+    }
     const formData = new FormData();
     formData.append('file', createRequest.file);
     formData.append('application_id', createRequest.application_id.toString());
     formData.append('document_type_id', createRequest.document_type_id.toString());
     formData.append('document_name', createRequest.document_name);
     formData.append('filename', createRequest.filename);
-    if (createRequest.document_name == videoDocument) {
-      return this.uploadVideo(formData);
-    }
-    else return this.http.post<BaseResponse<any>>(this.apiURL, formData);
+
+    return this.http.post<BaseResponse<any>>(this.apiURL, formData);
   }
 
-  uploadVideo(formData: FormData): Observable<any> {
+  uploadVideo(request: AddDocumentRequest): Observable<any> {
     return this.http.post<any>(this.apiURL,
-      formData);
-      //{ context: new HttpContext().set(BYPASS_LOG, true), reportProgress: true, observe: 'events' } ) //
-      // .pipe(
-      //   map((event: any) => {
-      //     if (event.type == HttpEventType.UploadProgress) {
-      //       const progress = event.progress;
-      //       console.log("Uploaded", progress);
-      //     } else if (event.type == HttpEventType.Response) {
-      //       console.log('File upload complete.');
-      //     }
-      //   }),
-      //   catchError((err: any) => {
-      //     alert(err.message);
-      //     return throwError(() => err.message);
-      //   })
-      // );
+      { application_id: request.application_id,
+        document_type_id: request.document_type_id,
+        document_name: request.document_name,
+        filename: 'video',
+        link: request.link
+      });
   }
 
   download(application_id: number, document_name: string, filename: string): Observable<HttpResponse<Blob>> {
     return this.http.get<any>(this.apiURL + `download/${application_id}/${document_name}/${filename}`, {
+      observe: 'response',
+      responseType: 'blob' as 'json'
+    });
+  }
+
+  downloadAll(application_id: number): Observable<HttpResponse<Blob>> {
+    return this.http.get<any>(this.apiURL + `downloadAll/${application_id}`, {
       observe: 'response',
       responseType: 'blob' as 'json'
     });

@@ -4,13 +4,11 @@ import { UsersApplicationsComponent } from './components/users-applications/user
 import { ApplicationModule } from '../application/application.module';
 import { ApplicationsTableComponent } from './components/applications-table/applications-table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
     UsersApplicationsComponent,
-    ApplicationsTableComponent,
-    AdminPanelComponent
+    ApplicationsTableComponent
   ],
   imports: [
     SharedModule,
@@ -18,7 +16,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     NgxPaginationModule
   ],
   exports: [
-    AdminPanelComponent
+    UsersApplicationsComponent
   ]
 })
 export class AdminModule { }

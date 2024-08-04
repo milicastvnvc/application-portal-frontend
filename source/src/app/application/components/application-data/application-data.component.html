@@ -3,7 +3,7 @@
 [application_id]="applicationId"
 [headerText]="isAdmin && application != undefined ? application.user.email : ''">
 
-  <h5 class="text-start text-secondary">Doctorate (mobility)</h5>
+  <h5 class="text-start text-secondary">{{ subheading }}</h5>
 
   <div class="ms-3 w-25">
     <ngx-skeleton-loader *ngIf="!progress" count="6" appearance="line"></ngx-skeleton-loader>
@@ -18,7 +18,9 @@
     <tbody>
       <tr *ngFor="let constant of progressConstant">
         <td class="d-flex align-items-center">
-          <img class="pe-2 progress-icon" src="{{ progress[constant.id] ? completed : not_completed }}">
+          <img *ngIf="progress[constant.id] == formProgress.Completed" class="pe-2 progress-icon" src="{{completed }}">
+          <img *ngIf="progress[constant.id] == formProgress.Incompleted" class="pe-2 progress-icon" src="{{not_completed }}">
+          <img *ngIf="progress[constant.id] == formProgress.Unlocked" class="pe-2 progress-icon" src="{{ edit }}">
           <a class="link-primary" [routerLink]="[constant.route, applicationId]">{{constant.name}}</a>
         </td>
       </tr>
@@ -70,9 +72,11 @@
     </div>
 
     <app-submit-button [buttonText]="'Submit application'"
-      [isDisabled]="applicationFormGroup.invalid || !canSubmit"></app-submit-button>
-    <div class="">
-    </div>
+      [isDisabled]="applicationFormGroup.invalid || !canSubmit">
+    </app-submit-button>
 
   </form>
+
+  <app-admin-application-buttons *ngIf="isAdmin" [application_id]="applicationId">
+  </app-admin-application-buttons>
 </app-main-card>

@@ -2,25 +2,29 @@
   <table class="table table-hover table-bordered align-middle text-center">
     <thead>
       <tr class="table-primary">
-        <th scope="col" class="col-lg-1 col-sm-1">#</th>
-        <th scope="col" class="col-lg-2 col-sm-2">User</th>
+        <th scope="col" class="col-lg-2 col-sm-2">Name and Surname</th>
+        <th scope="col" class="col-lg-2 col-sm-2">Email</th>
         <th scope="col" class="col-lg-3 col-sm-3">Home Institution</th>
-        <th scope="col" class="col-lg-4 col-sm-5">Mobility</th>
+        <th scope="col" class="col-lg-1 col-sm-1">Mobility</th>
         <th scope="col" class="col-lg-2 col-sm-1">Date submitted</th>
+        <th scope="col" class="col-lg-2 col-sm-1">Application Status</th>
       </tr>
     </thead>
     <tbody>
 
-      <tr *ngFor="let application of applications | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage,  totalItems: totalItems }"
+      <tr
+        *ngFor="let application of applications | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage,  totalItems: totalItems }"
         [routerLink]="['/application-data', application.id]" class="application-row">
 
-        <td>{{application.id}}</td>
+        <td>{{ application.personal_details.fornames + ' ' + application.personal_details.surname }}</td>
         <th scope="row">
-          {{application.user.email}}
+          {{ application.user.email }}
         </th>
-        <td>{{application.home_institution.name}}</td>
-        <td>{{application.mobility? application.mobility.name + ' (' + application.mobility.description + ")": 'Other (' + application.other_mobility.description | truncate:[50, '...'] }}</td>
+        <td>{{ application.home_institution.name }}</td>
+        <td>{{ application.mobility? application.mobility.name : 'Other (' + application.other_mobility.description |
+          truncate:[50, '...'] }}</td>
         <td>{{application.submitted_at | date}}</td>
+        <td><app-application-status [status]="application.status"></app-application-status></td>
       </tr>
 
     </tbody>

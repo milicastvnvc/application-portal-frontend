@@ -11,24 +11,19 @@ export function gradeValidator(mobilityType: MobilityType | undefined): Validato
 
     if (!current_grade || !previous_gpa) return { error: true };
 
-    if (mobilityType === undefined) {
+    if (mobilityType === undefined || (mobilityType != MobilityType.Student && mobilityType != MobilityType.Traineeship)) {
       formGroup.controls['current_grade'].setErrors(null);
       formGroup.controls['previous_gpa'].setErrors(null);
       return null;
     }
-
-    if ((mobilityType != MobilityType.Student && mobilityType != MobilityType.Traineeship)) {
-      formGroup.controls['current_grade'].setErrors(null);
-      formGroup.controls['previous_gpa'].setErrors(null);
-      return null;
-    }
-
 
     let student_radio = formGroup.get('student_radio');
+    const currentGrade = parseFloat(current_grade.value);
+    const previousGPA = parseFloat(previous_gpa.value);
 
-    if (!(current_grade.value) || Number.isNaN(parseFloat(current_grade.value)))
+    if (!(current_grade.value) || Number.isNaN(currentGrade) || currentGrade > 10 || currentGrade < 6)
       formGroup.controls['current_grade'].setErrors({ 'invalid': true });
-    if ((!(previous_gpa.value) || Number.isNaN(parseFloat(previous_gpa.value)))) {
+    if (!(previous_gpa.value) || Number.isNaN(previousGPA) || previousGPA > 10 || previousGPA < 6) {
       if ((student_radio && student_radio.value == BinaryQuestion.Yes)) {
         formGroup.controls['previous_gpa'].setErrors({ 'invalid': true });
       }
@@ -36,7 +31,6 @@ export function gradeValidator(mobilityType: MobilityType | undefined): Validato
         formGroup.controls['previous_gpa'].setErrors(null);
       }
     }
-
 
     return null;
   };

@@ -1,0 +1,20 @@
+<div class="form-group row d-flex justify-content-center mt-5">
+  <button class="btn btn-primary fw-bold text-uppercase p-3 mx-2 col-lg-3" type="button" (click)="changeAction(applicationStatus.AdditionalDocuments)"
+  data-bs-toggle="modal" data-bs-target="#myModal">
+    Send for revalidation
+  </button>
+  <button class="btn btn-success fw-bold text-uppercase p-3 mx-2 col-lg-3" type="button" (click)="changeAction(applicationStatus.Completed)"
+  data-bs-toggle="modal" data-bs-target="#myModal">
+    Approve Application
+  </button>
+  <button class="btn btn-danger fw-bold text-uppercase p-3 mx-2 col-lg-3" type="button" (click)="changeAction(applicationStatus.Rejected)"
+  data-bs-toggle="modal" data-bs-target="#myModal">
+    Reject Application
+  </button>
+</div>
+
+<app-modal
+  [modalBodyText]="'Are you sure you want to ' + modalText + '?'"
+  [modalHeaderText]="'Please confirm'"
+  (confirmEvent)="closeModal()">
+</app-modal>

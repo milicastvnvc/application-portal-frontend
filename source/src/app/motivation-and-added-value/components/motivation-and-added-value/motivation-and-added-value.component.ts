@@ -43,8 +43,9 @@ export class MotivationAndAddedValueComponent implements OnInit {
 
     this.formGroup = this.formBuilder.group({
       application_id: [''],
-      chosen_institution: ['', [Validators.required, Validators.minLength(300), Validators.maxLength(1000)]],
-      mobility_impact: ['', [Validators.required, Validators.minLength(300), Validators.maxLength(1000)]]
+      chosen_institution: ['', [Validators.required, Validators.minLength(300), Validators.maxLength(1500)]],
+      chosen_institution_second:['', [Validators.minLength(300), Validators.maxLength(1500)]],
+      mobility_impact: ['', [Validators.required, Validators.minLength(300), Validators.maxLength(2000)]]
     });
 
     this.formGroup.patchValue({
@@ -62,6 +63,10 @@ export class MotivationAndAddedValueComponent implements OnInit {
 
   get mobility_impact() {
     return this.formGroup.get('mobility_impact')!.value;
+  }
+
+  get chosen_institution_second() {
+    return this.formGroup.get('chosen_institution_second')!.value;
   }
 
   getMotivataionAndAddedValue(): void {

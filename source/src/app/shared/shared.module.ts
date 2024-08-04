@@ -22,6 +22,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MobileScreenDirective } from './directives/mobile-screen.directive';
 import { BackLinkComponent } from './components/back-link/back-link.component';
 import { UnlockButtonComponent } from './components/unlock-button/unlock-button.component';
+import { ApplicationStatusComponent } from './components/application-status/application-status.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UnlockButtonComponent } from './components/unlock-button/unlock-button.
     ModalComponent,
     MobileScreenDirective,
     BackLinkComponent,
-    UnlockButtonComponent
+    UnlockButtonComponent,
+    ApplicationStatusComponent
   ],
   imports: [
     CommonModule,
@@ -71,6 +73,7 @@ import { UnlockButtonComponent } from './components/unlock-button/unlock-button.
     ToasterComponent,
     BackLinkComponent,
     ModalComponent,
+    ApplicationStatusComponent,
     TooglePasswordDirective,
     MobileScreenDirective,
     TruncatePipe,

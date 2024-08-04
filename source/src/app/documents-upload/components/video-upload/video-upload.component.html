@@ -1,0 +1,38 @@
+<td class="align-middle">
+  <div *ngIf="document.is_required || uploadedDocument" class="text-center">
+    <img src="{{ uploadedDocument? completedImage : notCompletedImage }}" width="20">
+  </div>
+</td>
+
+<th class="document_name align-middle" scope="row">
+  <p [innerHTML]="document.description"></p>
+  <p class="text-secondary">{{ document.is_required ? "(Required)" : "(Optional)" }}</p>
+</th>
+
+<td *ngIf="!isAdmin">
+  <form [formGroup]="formGroup" (ngSubmit)="uploadVideo()">
+
+    <div class="my-3">
+
+      <label [for]="document.name" class="form-label">Link to Youtube video:</label>
+      <input class="form-control" type="text" [id]="document.name" formControlName="link"
+        [ngClass]="{ 'is-invalid': submitted && f['link'].errors }">
+      <div *ngIf="submitted && f['link'].errors" class="text-danger">
+        <span *ngIf="f['link'].errors['invalid']">Invalid link</span>
+      </div>
+
+      <div class="d-grid mx-auto mt-3 col-lg-5">
+        <button class="btn btn-primary fw-bold text-uppercase p-1" type="submit"
+          [disabled]="formGroup.invalid || isDisabled || !formGroup.dirty">SUBMIT</button>
+      </div>
+    </div>
+
+  </form>
+</td>
+
+<td class="align-middle">
+  <a *ngIf="uploadedDocument" href="{{uploadedDocument.path}}" target="_blank" class="fs-5 link-primary download-link">
+    <i class="bi bi-youtube pe-2"></i>Watch video
+  </a>
+</td>
+

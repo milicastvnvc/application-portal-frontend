@@ -4,4 +4,5 @@ export interface AddDocumentRequest {
   file: File;
   document_name: string;
   filename: string;
+  link: string;
 }

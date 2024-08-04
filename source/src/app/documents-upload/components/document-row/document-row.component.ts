@@ -8,6 +8,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { completed, fileSize, not_completed, videoDocument, videoSize } from 'src/app/shared/helpers/constants';
 import { fileSizeValidator } from 'src/app/shared/helpers/validators/file-size-validator';
 import { UploadedDocument } from '../../models/uploaded-documents';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-document-row',
@@ -59,7 +60,13 @@ export class DocumentRowComponent implements OnInit {
 
     if (this.document) {
       if (this.document.links.length > 0) {
+
         this.document.links.forEach(link => {
+
+          if (!link.link.startsWith("http"))
+          {
+            link.link = environment.serverURL + link.link;
+          }
           this.document.description = this.document.description.replace(link.label, `<a href='${link.link}' target='_blank'>${link.label}</a>`);
         });
       }

@@ -12,6 +12,7 @@ import { Semester } from 'src/app/shared/models/semester';
 import { Application } from 'src/app/application/models/application';
 import { shouldDisableForm } from 'src/app/shared/helpers/disabled-form';
 import { routeCheck } from 'src/app/shared/helpers/route-checker';
+import { MobilityType } from 'src/app/shared/enums/mobility-type';
 
 @Component({
   selector: 'app-proposed-host-universities',
@@ -33,6 +34,8 @@ export class ProposedHostUniversitiesComponent implements OnInit, AfterViewInit,
   isApplicationSubmitted: boolean = false;
   isAdmin: boolean = false;
   activeSemesters: Semester[] = [];
+  institution: string = "university";
+  department:string = "Department";
 
   constructor(private formBuilder: FormBuilder,
     private proposedHostUniversitiesService: ProposedHostUniversititesService,
@@ -88,6 +91,17 @@ export class ProposedHostUniversitiesComponent implements OnInit, AfterViewInit,
             this.proposedHostUniversities = result.data.form;
             this.application = result.data.application;
             this.activeSemesters = result.data.active_semesters;
+
+            if (this.application.mobility) {
+              if (this.application.mobility.type == MobilityType.Traineeship)
+              {
+                this.institution = "institution";
+              }
+              else
+              {
+                this.department += "/Study program"
+              }
+            }
 
             if (shouldDisableForm(this.application, this.isAdmin, this.formInfo.id)) {
               this.isApplicationSubmitted = true;

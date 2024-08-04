@@ -51,12 +51,6 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/applications']);
           }
           else {
-            if (result.data) {
-              if (result.data.user) {
-                if (result.data.user.email_verified_at)
-                  this.shouldVerify = true;
-              }
-            }
             this.toastService.showErrorsToast(result.errors);
           }
         }

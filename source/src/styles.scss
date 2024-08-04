@@ -18,7 +18,11 @@ $form-select-border-color: $gray-500;
 $form-check-input-checked-bg-color: $primary-color;
 $form-check-input-border: $border-width solid $gray-500;
 
-$theme-colors: map-merge($theme-colors, ("primary": $primary-color));
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary-color,
+  "info": $info-color,
+  "warning": $warning-color
+));
 $table-variants: map-merge($theme-colors, ("primary": $background-color));
 
 

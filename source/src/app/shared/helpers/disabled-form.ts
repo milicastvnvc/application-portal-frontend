@@ -1,20 +1,26 @@
 import { Application } from "src/app/application/models/application";
+import { ApplicationStatus } from "../enums/application-status";
+import { FormProgress } from "../enums/form-progress";
 
 export function shouldDisableForm(application: Application, isAdmin: boolean, formName: string = ''): boolean {
 
-  if (isAdmin) return true; //admin ne sme da menja formu
+  if (isAdmin) return true; //admin shouldn't be able to change form
 
-  if (application.submitted_at != undefined) return true; // ne sme da menja formu koja je vec submitovana
+  if (application.status != ApplicationStatus.Created
+   && application.status != ApplicationStatus.AdditionalDocuments)
+    return true; // applicant shouldn't be able to change form that is already submitted
 
   if (formName.length) {
-    if (application.unlocked_forms.length) //postoje otkljucane i zakljucane forme, znaci da neke sme da menja, a neke ne
+    let progress: any = application.progress;
+    if (application.status == ApplicationStatus.AdditionalDocuments) // there are unlocked forms for modification
     {
-      if (application.unlocked_forms.includes(formName)) return false; //moja je otkljucana i smem da joj pristupim
-
-      return true; //moja je zakljucana
+      if (progress[formName] == FormProgress.Unlocked) // if that's the unlocked one, applicant should be able to change it
+      {
+        return false;
+      }
+      return true;
     }
-      return false; //ne postoje otkljucane i zakljucane, smem da pristupim formi
-  }
 
+  }
   return false;
 }

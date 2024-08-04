@@ -1,6 +1,7 @@
 //Assets
 export const completed:string = 'checked.png';
 export const not_completed: string = 'x-button.png';
+export const edit: string = "edit.png";
 export const erasmusLogo: string = 'erasmus_logo.png';
 export const uniLogo: string = 'unkg.png';
 

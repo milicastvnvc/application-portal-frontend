@@ -1,6 +1,7 @@
 export enum MobilityType {
   Student,
   Traineeship,
-  Staff,
+  StaffAcademic,
+  StaffNonAcademic,
   Other
 }

@@ -5,11 +5,14 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Application } from '../../models/application';
 import { ApplicationProgress } from '../../models/application-progress';
-import { completed, not_completed } from 'src/app/shared/helpers/constants';
-import { progressConstant } from '../../helpers/constants';
+import { completed, edit, not_completed } from 'src/app/shared/helpers/constants';
+import { progressConstant, proposedHostUniversitiesConstant } from '../../helpers/constants';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { shouldDisableForm } from 'src/app/shared/helpers/disabled-form';
 import { routeCheck } from 'src/app/shared/helpers/route-checker';
+import { ApplicationStatus } from 'src/app/shared/enums/application-status';
+import { FormProgress } from 'src/app/shared/enums/form-progress';
+import { MobilityType } from 'src/app/shared/enums/mobility-type';
 
 @Component({
   selector: 'app-application-data',
@@ -22,14 +25,18 @@ export class ApplicationDataComponent implements OnInit {
   progress!: ApplicationProgress | any;
 
   progressConstant = progressConstant;
+  proposed = proposedHostUniversitiesConstant;
+  formProgress = FormProgress;
 
   completed: string = '../../../../assets/' + completed;
   not_completed: string = '../../../../assets/' + not_completed;
+  edit: string = '../../../../assets/' + edit;
 
   applicationId: number | undefined;
   protected applicationFormGroup!: FormGroup;
   canSubmit: boolean = true;
   isAdmin: boolean = false;
+  subheading: string = 'Doctorate (mobility)';
 
   constructor(private formBuilder: FormBuilder,
     private applicationService: ApplicationService,
@@ -44,10 +51,10 @@ export class ApplicationDataComponent implements OnInit {
     this.isAdmin = this.accountService.isAdmin();
 
     this.applicationFormGroup = this.formBuilder.group({
-      published_name: ['', [Validators.required]],
-      geniune_information: ['', [Validators.required]],
-      provide_documents: ['', [Validators.required]],
-      collect_personal_info: ['', [Validators.required]]
+      published_name: ['', [Validators.requiredTrue]],
+      geniune_information: ['', [Validators.requiredTrue]],
+      provide_documents: ['', [Validators.requiredTrue]],
+      collect_personal_info: ['', [Validators.requiredTrue]]
     });
 
     this.applicationId = routeCheck(this.route);
@@ -65,7 +72,24 @@ export class ApplicationDataComponent implements OnInit {
             this.application = result.data;
             this.progress = this.application.progress;
 
-            if (this.application.submitted_at != undefined) {
+            if (this.application.mobility)
+            {
+              if (this.application.mobility.type == MobilityType.Student)
+              {
+                this.subheading = this.application.mobility.name + " (mobility)";
+              }
+              if (this.application.mobility.type == MobilityType.Traineeship)
+              {
+                this.proposed.name = "Proposed host company/institution"
+              }
+              else
+              {
+                this.proposed.name = "Proposed host universities"
+              }
+            }
+
+            if (this.application.status != ApplicationStatus.Created &&
+              this.application.status != ApplicationStatus.AdditionalDocuments) {
 
               this.applicationFormGroup.patchValue({
                 published_name: true,
@@ -98,7 +122,7 @@ export class ApplicationDataComponent implements OnInit {
 
 
     for(let constant of this.progressConstant) {
-      if (!this.progress[constant.id]) {
+      if (this.progress[constant.id] == FormProgress.Incompleted) {
         this.toastService.showErrorsToast(['Not all forms are filled.'])
         return;
       }

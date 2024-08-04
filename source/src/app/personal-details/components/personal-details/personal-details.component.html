@@ -1,7 +1,4 @@
-<app-main-card
-  [title]="'Application Form'"
-  [subtitle]="'Personal details'"
-  [isAdmin]="isAdmin"
+<app-main-card [title]="'Application Form'" [subtitle]="'Personal details'" [isAdmin]="isAdmin"
   [application_id]="application?.id" [form_name]="this.formInfo.id"
   [headerText]="isAdmin && application != undefined ? application.user.email : ''">
 
@@ -17,7 +14,14 @@
       [personalDetails]="personalDetails"></app-contact-details>
 
     <app-additional-information [formGroup]="formGroup" [submitted]="submitted"
-      [personalDetails]="personalDetails"></app-additional-information>
+      [personalDetails]="personalDetails"
+      [hidden]="mobilityType == mTypes.StaffAcademic || mobilityType == mTypes.StaffNonAcademic"></app-additional-information>
+
+    <div [class.invisible]="!submitted || !formGroup.invalid">
+      <span class="fs-5 fw-semibold text-danger row d-flex justify-content-center mt-2">
+        Mandatory info missing
+      </span>
+    </div>
 
     <app-submit-button [isDisabled]="!formGroup.dirty" [buttonText]="'Save'">
       <i class="bi bi-check-lg pe-2"></i>

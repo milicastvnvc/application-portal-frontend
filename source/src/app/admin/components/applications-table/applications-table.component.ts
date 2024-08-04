@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Application } from 'src/app/application/models/application';
 import { itemsPerPage, maxPage } from 'src/app/shared/helpers/constants';
+import { AdminApplication } from '../../models/admin-application';
 
 @Component({
   selector: 'app-applications-table',
@@ -10,7 +11,7 @@ import { itemsPerPage, maxPage } from 'src/app/shared/helpers/constants';
 export class ApplicationsTableComponent implements OnInit {
 
   @Input()
-  applications: Application[] = [];
+  applications: AdminApplication[] = [];
 
   @Input()
   totalItems: number = 0;
@@ -28,7 +29,7 @@ export class ApplicationsTableComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-
+    console.log(this.applications);
   }
 
   onPageChange(number: number) {

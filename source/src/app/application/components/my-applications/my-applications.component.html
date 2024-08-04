@@ -8,12 +8,16 @@
 
 <div class="d-flex justify-content-start align-items-center mt-2">
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" id="inProgress" [(ngModel)]="inProgressCheckbox">
+    <input class="form-check-input" type="checkbox" id="inProgress" [(ngModel)]="inProgressCheckbox" (change)="updateCheckboxes()">
     <label class="form-check-label" for="inProgress">In Progress</label>
   </div>
   <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" id="submitted" [(ngModel)]="submittedCheckbox">
-    <label class="form-check-label" for="submitted">Submitted</label>
+    <input class="form-check-input" type="checkbox" id="pending" [(ngModel)]="pendingCheckbox" (change)="updateCheckboxes()">
+    <label class="form-check-label" for="pending">Pending</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="checkbox" id="completed" [(ngModel)]="completedCheckbox" (change)="updateCheckboxes()">
+    <label class="form-check-label" for="completed">Completed</label>
   </div>
 </div>
 
@@ -24,31 +28,26 @@
   </div>
 
   <p class="text-secondary text-center m-5" *ngIf="applications && !applications.length">
-    There are no applications you applied for
+    There are no applications you applied for.
   </p>
 
   <ul class="list-group list-group-flush" *ngIf="applications && applications.length">
 
-    <p class="text-secondary text-center m-5" *ngIf="(!submittedCheckbox && !inProgressCheckbox)">
-      No Applications
-    </p>
-
-    <p class="text-secondary text-center m-5" *ngIf="(submittedCheckbox && !inProgressCheckbox && !submittedLength)">
-      No Applications
-    </p>
-
-    <p class="text-secondary text-center m-5" *ngIf="(!submittedCheckbox && inProgressCheckbox && !inProcessLength)">
+    <p class="text-secondary text-center m-5" *ngIf="!shownLength">
       No Applications
     </p>
 
     <ng-container *ngFor="let application of applications">
-      <li *ngIf="((application.submitted_at && submittedCheckbox) || (!application.submitted_at && inProgressCheckbox))"
+      <li *ngIf="((application.status == status.Completed && completedCheckbox)
+                || ((application.status == status.Created || application.status == status.AdditionalDocuments) && inProgressCheckbox)
+                || (application.status == status.Pending && pendingCheckbox))"
         class="list-group-item p-2" [routerLink]="['/application-data', application.id]">
 
         <app-my-application [id]="application.id"
           [mobility]="application.mobility ? application.mobility.name + ' (' + application.mobility.description + ')' :  'Other (' +application.other_mobility.description + ')'"
-          [homeInstitution]="application.home_institution.name" [dateCreated]="application.created_at"
-          [isSubmitted]="application.submitted_at != null">
+          [homeInstitution]="application.home_institution.name"
+          [dateCreated]="application.created_at"
+          [status]="application.status">
         </app-my-application>
 
       </li>

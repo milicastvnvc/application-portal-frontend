@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Application } from '../../models/application';
 import { ApplicationService } from '../../services/application.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 
 @Component({
   selector: 'app-my-applications',
@@ -11,11 +12,15 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 export class MyApplicationsComponent implements OnInit {
 
   applications: Application[] | null = null;
-  submittedLength: number = 0;
-  inProcessLength: number = 0;
+  completedLength: number = 0;
+  inProgressLength: number = 0;
+  pendingLength: number = 0;
+  shownLength: number = 0;
+  status = ApplicationStatus;
 
   inProgressCheckbox:boolean = true;
-  submittedCheckbox:boolean = false;
+  pendingCheckbox:boolean = false;
+  completedCheckbox:boolean = false;
 
   constructor(
     private applicationService: ApplicationService
@@ -29,12 +34,26 @@ export class MyApplicationsComponent implements OnInit {
     this.applicationService.getMyApplications().subscribe(
       {
         next: (result) => {
-          this.applications = result;
-          this.submittedLength = this.applications.filter(app => {
-            return app.submitted_at != undefined;
+          this.applications = result.data;
+
+          this.completedLength = this.applications.filter(app => {
+            return app.status == ApplicationStatus.Completed;
           }).length;
-          this.inProcessLength = this.applications.length - this.submittedLength;
+          this.inProgressLength = this.applications.filter(app => {
+            return app.status == ApplicationStatus.Created || app.status == ApplicationStatus.AdditionalDocuments;
+          }).length;
+          this.pendingLength = this.applications.filter(app => {
+            return app.status == ApplicationStatus.Pending;
+          }).length;
+          this.shownLength = this.inProgressLength;
         }
       });
+  }
+
+  updateCheckboxes() : void
+  {
+    this.shownLength = this.inProgressCheckbox? this.inProgressLength : 0;
+    this.shownLength += this.pendingCheckbox? this.pendingLength : 0;
+    this.shownLength += this.completedCheckbox? this.completedLength : 0;
   }
 }

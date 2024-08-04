@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class MyApplicationComponent implements OnInit{
   dateCreated!: Date
 
   @Input()
-  isSubmitted: boolean = false;
+  status!: ApplicationStatus;
 
   ngOnInit(): void {
   }

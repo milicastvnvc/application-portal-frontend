@@ -24,6 +24,12 @@
       [mobilityType]="mobilityType">
     </app-identification>
 
+    <div [class.invisible]="!submitted || !formGroup.invalid">
+      <span class="fs-5 fw-semibold text-danger row d-flex justify-content-center mt-2">
+        Mandatory info missing
+      </span>
+    </div>
+
     <app-submit-button [isDisabled]="!formGroup.dirty" [buttonText]="'Save'">
       <i class="bi bi-check-lg pe-2"></i>
     </app-submit-button>

@@ -1,4 +1,4 @@
-<app-main-card [title]="'Application Form'" [subtitle]="'Proposed host universities'"
+<app-main-card [title]="'Application Form'" [subtitle]="'Proposed host ' + institution"
 [isAdmin]="isAdmin"
 [application_id]="application?.id" [form_name]="this.formInfo.id"
 [headerText]="isAdmin && application != undefined ? application.user.email : ''">
@@ -11,7 +11,7 @@
 
         <div class="col-md-8 col-sm-10">
           <label for="host_institution" class="col-form-label">
-            Official name of the first host university
+            Official name of the first host {{institution}}
           </label>
           <div class="col-sm-10 col-lg-8">
             <input type="text" class="form-control" id="host_institution" formControlName="host_institution"
@@ -23,12 +23,12 @@
         </div>
 
         <div class="col-md-8 col-sm-10">
-          <label for="department" class="col-form-label">Department/Study program</label>
+          <label for="department" class="col-form-label">{{department}}</label>
           <div class="col-sm-10 col-lg-8">
             <input type="text" class="form-control" id="department" formControlName="department"
               [ngClass]="{ 'is-invalid': submitted && f['department'].errors }">
             <small class="text-danger" *ngIf="submitted && f['department'].errors">
-              Department/Study is required field.
+              {{department}} is required field.
             </small>
           </div>
         </div>
@@ -48,7 +48,7 @@
 
         <div class="col-md-8 col-sm-10">
           <label for="host_institution_second" class="col-form-label">Official name of the second host
-            university</label>
+            {{institution}}</label>
           <div class="col-sm-10 col-lg-8">
             <input type="text" class="form-control" id="host_institution_second"
               formControlName="host_institution_second"
@@ -60,12 +60,12 @@
         </div>
 
         <div class="col-md-8 col-sm-10">
-          <label for="department_second" class="col-form-label">Department/Study program</label>
+          <label for="department_second" class="col-form-label">{{department}}</label>
           <div class="col-sm-10 col-lg-8">
             <input type="text" class="form-control" id="department_second" formControlName="department_second"
               [ngClass]="{ 'is-invalid': submitted && f['department_second'].errors }">
             <small class="text-danger" *ngIf="submitted && f['department_second'].errors">
-              Department/Study program is missing.
+              {{department}} is missing.
             </small>
           </div>
         </div>
@@ -83,6 +83,12 @@
       </div>
 
     </app-fieldset>
+
+    <div [class.invisible]="!submitted || !formGroup.invalid">
+      <span class="fs-5 fw-semibold text-danger row d-flex justify-content-center mt-2">
+        Mandatory info missing
+      </span>
+    </div>
 
     <app-submit-button [isDisabled]="!formGroup.dirty" [buttonText]="'Save'">
       <i class="bi bi-check-lg pe-2"></i>

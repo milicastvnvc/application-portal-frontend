@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment.development';
 import { Application } from '../models/application';
 import { CreateApplicationRequest } from '../models/create-application-request';
 import { PaginationResult } from 'src/app/shared/models/pagination-result';
+import { AdminApplication } from 'src/app/admin/models/admin-application';
+import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +18,8 @@ export class ApplicationService {
 
   constructor(private http: HttpClient) { }
 
-  getAllApplications(page: number = 1, search_key: string = '', mobility_id: number | null = null, home_institution_id: number | null = null, per_page: number = 5, is_submitted: number = 1): Observable<BaseResponse<PaginationResult<Application>>> {
-    return this.http.get<BaseResponse<PaginationResult<Application>>>(this.apiURL + `getAll`,
+  getAllApplications(page: number = 1, search_key: string = '', mobility_id: number | null = null, home_institution_id: number | null = null, per_page: number = 5, status: number | null = null): Observable<BaseResponse<PaginationResult<AdminApplication>>> {
+    return this.http.get<BaseResponse<PaginationResult<AdminApplication>>>(this.apiURL + `getAll`,
       {
         params:
         {
@@ -26,7 +28,7 @@ export class ApplicationService {
           search_key: search_key,
           mobility_id: mobility_id ? mobility_id: '',
           home_institution_id: home_institution_id ? home_institution_id : '',
-          is_submitted: is_submitted
+          status: status ? status : ''
         }
       });
   }
@@ -35,8 +37,8 @@ export class ApplicationService {
     return this.http.get<BaseResponse<Application>>(this.apiURL + `${applicationId}`);
   }
 
-  getMyApplications(): Observable<Application[]> {
-    return this.http.get<Application[]>(this.apiURL);
+  getMyApplications(): Observable<BaseResponse<Application[]>> {
+    return this.http.get<BaseResponse<Application[]>>(this.apiURL);
   }
 
   createApplication(createApplicationRequest: CreateApplicationRequest): Observable<BaseResponse<Application | undefined>> {
@@ -45,5 +47,9 @@ export class ApplicationService {
 
   submitApplication(application_id: number): Observable<BaseResponse<string>> {
     return this.http.post<BaseResponse<string>>(this.apiURL + 'submit', { application_id: application_id });
+  }
+
+  changeApplicationStatus(application_id: number, status: ApplicationStatus): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(this.apiURL + 'status', { application_id: application_id, status: status });
   }
 }

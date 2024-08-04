@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { alphabeticValidator } from 'src/app/shared/helpers/validators/alphabetic-validator';
 import { dateValidator } from 'src/app/shared/helpers/validators/date-validator';
@@ -15,6 +15,8 @@ import { Application } from 'src/app/application/models/application';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { shouldDisableForm } from 'src/app/shared/helpers/disabled-form';
 import { routeCheck } from 'src/app/shared/helpers/route-checker';
+import { inclusiveSupportValidator } from '../../helpers/validators/inclusive-support-validator';
+import { MobilityType } from 'src/app/shared/enums/mobility-type';
 
 @Component({
   selector: 'app-personal-details',
@@ -26,11 +28,13 @@ export class PersonalDetailsComponent implements OnInit {
   formInfo: any;
   applicationId: number | undefined;
   application: Application | undefined = undefined;
+  mobilityType: MobilityType | undefined;
   protected formGroup!: FormGroup;
   submitted = false;
   isAdmin: boolean = false;
 
   personalDetails: PersonalDetails | undefined = undefined;
+  mTypes = MobilityType;
 
   constructor(private formBuilder: FormBuilder,
     private personalDetailsService: PersonalDetailsService,
@@ -63,7 +67,7 @@ export class PersonalDetailsComponent implements OnInit {
       telephone: ['', [Validators.required, telephoneValidator()]],
       email: ['', [Validators.required, emailValidator()]],
       alternative_email: [''],
-      disadvantaged: ['', [Validators.required]]
+      disadvantaged: ['']
     });
 
     this.formGroup.patchValue({
@@ -82,6 +86,11 @@ export class PersonalDetailsComponent implements OnInit {
           if (result.success) {
             this.personalDetails = result.data.form;
             this.application = result.data.application;
+
+            if (this.application.mobility) {
+              this.mobilityType = this.application.mobility.type;
+              this.formGroup.addValidators([inclusiveSupportValidator(this.mobilityType)]);
+            }
 
             if (shouldDisableForm(this.application, this.isAdmin,  this.formInfo.id))
             {

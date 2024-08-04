@@ -27,13 +27,10 @@
     </div>
 
     <div class="d-flex justify-content-center mb-2">
-      <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" (reset)="handleReset()" (expire)="handleExpire()"
-        (load)="handleLoad()" (success)="handleSuccess($event)" [useGlobalDomain]="useGlobalDomain" [size]="size"
-        [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
-      </ngx-recaptcha2>
+      <app-captcha #captcha></app-captcha>
     </div>
 
-    <div *ngIf="submitted && !captchaSuccess" class="d-flex justify-content-center mb-2 text-danger">
+    <div *ngIf="submitted && !captcha.captchaSuccess" class="d-flex justify-content-center mb-2 text-danger">
       <small>Captcha field is required.</small>
     </div>
 

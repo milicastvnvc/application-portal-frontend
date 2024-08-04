@@ -1,6 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
-import { Application } from 'src/app/application/models/application';
+import { Component, OnInit } from '@angular/core';
 import { HomeInstitution } from 'src/app/application/models/home-institution';
 import { Mobility } from 'src/app/application/models/mobility';
 import { ApplicationService } from 'src/app/application/services/application.service';
@@ -9,23 +7,26 @@ import { MobilityService } from 'src/app/application/services/mobility.service';
 import { itemsPerPage } from 'src/app/shared/helpers/constants';
 import { PaginationResult } from 'src/app/shared/models/pagination-result';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { AdminApplication } from '../../models/admin-application';
+import { ApplicationStatus } from 'src/app/shared/enums/application-status';
+import { statusConstant } from '../../helpers/constants';
 
 @Component({
   selector: 'app-users-applications',
   templateUrl: './users-applications.component.html',
   styleUrls: ['./users-applications.component.scss']
 })
-export class UsersApplicationsComponent implements OnInit, OnChanges {
+export class UsersApplicationsComponent implements OnInit {
 
-  @Input()
-  submitted: boolean = true;
-  paginatedResult: PaginationResult<Application> | undefined = undefined;
+  paginatedResult: PaginationResult<AdminApplication> | undefined = undefined;
   mobilities: Mobility[] = [];
   homeInstitutions: HomeInstitution[] = [];
+  allStatuses = statusConstant.slice(1);
   currentPage: number = 1;
   searchKey: string = '';
   mobilityId: number | undefined = undefined;
   homeInstitutionId: number | undefined = undefined;
+  statusId: ApplicationStatus | undefined = undefined;
 
   constructor(
     private applicationService: ApplicationService,
@@ -34,17 +35,14 @@ export class UsersApplicationsComponent implements OnInit, OnChanges {
     private toastService: ToastService) { }
 
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.getAllApplications();
-  }
-
   ngOnInit(): void {
     this.getAllMobilities();
     this.getAllHomeInstitutions();
+    this.getAllApplications();
   }
 
   getAllApplications(): void {
-    this.applicationService.getAllApplications(this.currentPage, this.searchKey, this.mobilityId, this.homeInstitutionId, itemsPerPage, Number(this.submitted)).subscribe(
+    this.applicationService.getAllApplications(this.currentPage, this.searchKey, this.mobilityId, this.homeInstitutionId, itemsPerPage, this.statusId).subscribe(
       {
         next: (result) => {
           if (!result.success) {
@@ -97,6 +95,11 @@ export class UsersApplicationsComponent implements OnInit, OnChanges {
   changeHomeInstitution(e: any): void {
     this.currentPage = 1;
     this.homeInstitutionId = e.target.value;
+    this.getAllApplications();
+  }
+  changeApplicationStatus(e: any): void {
+    this.currentPage = 1;
+    this.statusId = e.target.value;
     this.getAllApplications();
   }
 

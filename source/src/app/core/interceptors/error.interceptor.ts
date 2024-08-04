@@ -21,11 +21,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse) => {
+
           if (error.error instanceof ErrorEvent) { // client-side error
             return throwError(() => error);
           }
           else { // server-side error
-
             if (error.status == HttpStatusCode.NotFound)
             {
               this.router.navigate(['not-found']);

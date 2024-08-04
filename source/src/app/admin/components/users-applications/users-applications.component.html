@@ -1,8 +1,9 @@
 <div class="card-body mt-2 p-0">
+  <h5 class="card-title text-start fw-light fs-2">Applications</h5>
   <div class="row">
     <div class="col-lg-3 log-sm-3 mt-3">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search user" aria-label="user" [(ngModel)]="searchKey"
+        <input type="text" class="form-control" placeholder="Search user by email" aria-label="user" [(ngModel)]="searchKey"
           (keyup.enter)="search()">
         <button class="btn btn-primary" type="button" id="search-button" (click)="search()"><i
             class="bi bi-search"></i></button>
@@ -24,6 +25,13 @@
         </option>
       </select>
     </div>
+    <div class="col-lg-2 log-sm-2 mt-3">
+      <select class="form-select" aria-label="Default select example" (change)="changeApplicationStatus($event)">
+        <option value="" selected>All statuses</option>
+        <option *ngFor="let status of allStatuses" [value]="status.id">{{status.label}}
+        </option>
+      </select>
+    </div>
   </div>
 
   <div class="mt-4">
@@ -32,7 +40,7 @@
     </div>
 
     <p class="text-secondary text-center m-5" *ngIf="paginatedResult && !paginatedResult.data.length">
-      There are no {{submitted? 'submitted' : 'unlocked'}} applications
+      No Applications
     </p>
 
     <app-applications-table *ngIf="paginatedResult && paginatedResult.data.length" [applications]="paginatedResult.data"
