@@ -20,4 +20,4 @@ npm install
 ng serve --open
 ```
 
-5. Visit http://localhost:4200/ in your web browser.
+5. Visit `http://localhost:4200/` in your web browser.
