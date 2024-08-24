@@ -39,7 +39,7 @@
               <span *ngIf="f['chosen_institution_second'].errors['minlength']">The minimum number of characters is 300</span>
               <span *ngIf="f['chosen_institution_second'].errors['maxlength']">The maximum number of characters is 1500</span>
             </div>
-            <span class="counter">{{chosen_institution_second.length}}</span>
+            <span class="counter">{{chosen_institution_second?.length}}</span>
           </div>
         </div>
       </div>
