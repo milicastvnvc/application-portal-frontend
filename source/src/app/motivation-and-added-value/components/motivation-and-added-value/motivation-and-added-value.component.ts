@@ -93,7 +93,8 @@ export class MotivationAndAddedValueComponent implements OnInit {
     if (this.motivationAndAddedValue) {
       this.formGroup.patchValue({
         chosen_institution: this.motivationAndAddedValue.chosen_institution,
-        mobility_impact: this.motivationAndAddedValue.mobility_impact
+        mobility_impact: this.motivationAndAddedValue.mobility_impact,
+        chosen_institution_second: this.motivationAndAddedValue.chosen_institution_second
       });
     }
   }
