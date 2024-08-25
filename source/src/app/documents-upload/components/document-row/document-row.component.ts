@@ -24,6 +24,9 @@ export class DocumentRowComponent implements OnInit {
   document!: Document;
 
   @Input()
+  documentIndex!: number;
+
+  @Input()
   uploadedDocument: UploadedDocument | undefined = undefined;
 
   @Input()
@@ -130,7 +133,7 @@ export class DocumentRowComponent implements OnInit {
     this.uploadEvent.emit(this.fileGroup);
   }
 
-  downloadDocument(): void {
+  downloadDocument(documentIndex:number): void {
 
     const filename = this.uploadedDocument!.filename;
 
@@ -144,7 +147,7 @@ export class DocumentRowComponent implements OnInit {
             document.body.appendChild(a);
             const objectUrl = window.URL.createObjectURL(data);
             a.href = objectUrl;
-            a.download = filename;
+            a.download = documentIndex + '. ' + this.document.name + ' - ' + filename;//ovde dodaj indeks
             a.click();
             window.URL.revokeObjectURL(objectUrl);
             document.body.removeChild(a);

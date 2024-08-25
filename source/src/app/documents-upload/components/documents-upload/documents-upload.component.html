@@ -50,7 +50,7 @@
       <ng-container *ngIf="documents.length">
         <app-document-row *ngFor="let document of documents; let i = index" class="d-table-row border"
           [document]="document" (uploadEvent)="uploadDocument($event)" [isDisabled]="isApplicationSubmitted"
-          [uploadedDocument]="uploadedDocuments[i]" [isAdmin]="isAdmin">
+          [uploadedDocument]="uploadedDocuments[i]" [isAdmin]="isAdmin" [documentIndex]="i+1">
         </app-document-row>
         <app-video-upload class="d-table-row border" *ngIf="video !== undefined"
         [document]="video" (uploadEvent)="uploadDocument($event)" [isDisabled]="isApplicationSubmitted"
