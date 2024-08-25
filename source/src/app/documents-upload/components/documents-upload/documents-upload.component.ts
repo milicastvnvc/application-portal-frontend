@@ -10,7 +10,7 @@ import { AccountService } from 'src/app/shared/services/account.service';
 import { Application } from 'src/app/application/models/application';
 import { shouldDisableForm } from 'src/app/shared/helpers/disabled-form';
 import { routeCheck } from 'src/app/shared/helpers/route-checker';
-import { videoDocument } from 'src/app/shared/helpers/constants';
+import { fileSize, videoDocument } from 'src/app/shared/helpers/constants';
 import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 
 @Component({
@@ -29,6 +29,7 @@ export class DocumentsUploadComponent implements OnInit {
 
   documents: Document[] = [];
   video: Document | undefined;
+  fileSize: number = fileSize;
 
   isAdmin: boolean = false;
   applicationStatus = ApplicationStatus;

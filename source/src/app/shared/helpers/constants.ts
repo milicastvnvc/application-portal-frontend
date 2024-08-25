@@ -11,7 +11,7 @@ export const session_expired_message = "Session expired";
 
 //Documents Upload
 export const videoDocument = 'video';
-export const fileSize = 10; //in Megabytes
+export const fileSize = 30; //in Megabytes
 export const videoSize = 200; //in Megabytes
 
 //Pagination
