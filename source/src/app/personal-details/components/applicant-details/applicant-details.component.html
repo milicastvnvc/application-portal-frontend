@@ -71,4 +71,43 @@
     </div>
   </div>
 
+  <a class="link-primary collapse-link" *ngIf="showSecondChoiceLink && !isAdmin !isApplicationSubmitted" [class.disabled-link]="isApplicationSubmitted" (click)="showSecondChoice()">
+    <i class="bi bi-plus-lg pe-2"></i>Previous participation in the Erasmus+ program
+  </a>
+
+  <fieldset class="collapse border-top border-bottom p-2 pb-4 mb-2" id="collapseSecondChoice">
+    <legend class="float-none w-auto px-2">Previous participation in the Erasmus+ program</legend>
+  
+    <a class="link-primary collapse-link" *ngIf="!isAdmin" [class.disabled-link]="isApplicationSubmitted" (click)="hideSecondChoice()">
+      <i class="bi bi-x-lg pe-2"></i>Remove previous participation in the Erasmus+ program
+    </a>
+  
+    <div class="col-md-8 col-sm-10">
+      <label for="previous_host_institution" class="col-form-label">Name of host institution</label>
+      <div class="col-sm-10 col-lg-8">
+        <input type="text" class="form-control" id="previous_host_institution"
+          formControlName="previous_host_institution"
+          [ngClass]="{ 'is-invalid': submitted && f['previous_host_institution'].errors }" [attr.disabled]="isAdmin ? true : null">
+        <small class="text-danger" *ngIf="submitted && f['previous_host_institution'].errors">
+          Host institution name is missing.
+        </small>
+      </div>
+    </div>
+  
+    <div class="col-md-8 col-sm-10">
+      <label for="mobility_dates" class="col-form-label">Mobility Date</label>
+      <div class="col-sm-10 col-lg-8">
+        <input type="date" class="form-control" id="mobility_dates" formControlName="mobility_dates"
+          [ngClass]="{ 'is-invalid': submitted && f['mobility_dates'].errors }" [attr.disabled]="isAdmin ? true : null">
+        <small class="text-danger" *ngIf="submitted && f['mobility_dates'].errors">Date is missing.
+        </small>
+      </div>
+    </div>
+  </fieldset>
+  
+
 </app-fieldset>
+
+
+
+

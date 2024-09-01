@@ -67,7 +67,9 @@ export class PersonalDetailsComponent implements OnInit {
       telephone: ['', [Validators.required, telephoneValidator()]],
       email: ['', [Validators.required, emailValidator()]],
       alternative_email: [''],
-      disadvantaged: ['']
+      disadvantaged: [''],
+      previous_host_institution: [''],
+      mobility_dates: [''],
     });
 
     this.formGroup.patchValue({
@@ -86,6 +88,20 @@ export class PersonalDetailsComponent implements OnInit {
           if (result.success) {
             this.personalDetails = result.data.form;
             this.application = result.data.application;
+
+            // Update the formGroup with the fetched personal details
+          if (this.personalDetails) {
+            this.formGroup.patchValue({
+              surname: this.personalDetails.surname,
+              fornames: this.personalDetails.fornames,
+              birth_date: this.personalDetails.birth_date,
+              birth_place: this.personalDetails.birth_place,
+              gender: this.personalDetails.gender,
+              passport: this.personalDetails.passport,
+              previous_host_institution: this.personalDetails.previous_host_institution,
+              mobility_dates: this.personalDetails.mobility_dates,
+            });
+          }
 
             if (this.application.mobility) {
               this.mobilityType = this.application.mobility.type;

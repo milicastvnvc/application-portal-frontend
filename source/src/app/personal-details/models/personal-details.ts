@@ -17,5 +17,7 @@ export interface PersonalDetails {
   telephone: string;
   email: string;
   alternative_email: string;
-  disadvantaged: BinaryQuestion
+  disadvantaged: BinaryQuestion;
+  previous_host_institution: string;
+  mobility_dates: Date;
 }
