@@ -47,7 +47,7 @@ export class MainCardComponent {
       {
         next: (result) => {
           if (result.success) {
-            this.fullName = result.data.form?.surname + " " + result.data.form?.fornames;
+            this.fullName = result.data.form?.fornames + " " + result.data.form?.surname;
             // console.log(this.fullName);
           }
         },

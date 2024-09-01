@@ -73,7 +73,9 @@ export class ApplicantDetailsComponent implements OnInit, OnChanges {
         gender: this.personalDetails.gender,
         passport: this.personalDetails.passport,
         previous_host_institution: this.personalDetails.previous_host_institution || '',
-        mobility_dates: this.personalDetails.mobility_dates || ''
+        mobility_dates: this.personalDetails.mobility_dates || '',
+        previous_participation: this.personalDetails.previous_participation?true:false,//obavezno ovako inace iz nekog razloga nece da radi
+        participation_count: this.personalDetails.participation_count,
       });
     }
   }

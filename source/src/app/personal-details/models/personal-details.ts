@@ -20,4 +20,6 @@ export interface PersonalDetails {
   disadvantaged: BinaryQuestion;
   previous_host_institution: string;
   mobility_dates: Date;
+  previous_participation: boolean;
+  participation_count?: number;
 }

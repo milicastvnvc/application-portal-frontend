@@ -71,7 +71,33 @@
     </div>
   </div>
 
-  <a class="link-primary collapse-link" *ngIf="showSecondChoiceLink && !isAdmin !isApplicationSubmitted" [class.disabled-link]="isApplicationSubmitted" (click)="showSecondChoice()">
+   <div class="row mb-3">
+    <label for="previous_participation" class="col-sm-5 col-lg-2 col-form-label">Have you previously participated in the Erasmus+ program?</label>
+    <div class="col-sm-7 col-lg-5">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="participationYes" formControlName="previous_participation" [value]="true" [ngClass]="{ 'is-invalid': submitted && f['previous_participation'].errors }">
+        <label class="form-check-label" for="participationYes">Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="participationNo" formControlName="previous_participation" [value]="false" [ngClass]="{ 'is-invalid': submitted && f['previous_participation'].errors }">
+        <label class="form-check-label" for="participationNo">No</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="f['previous_participation'].value === true">
+    <label for="participation_count" class="col-sm-5 col-lg-2 col-form-label">How many times?</label>
+    <div class="col-sm-7 col-lg-3">
+      <input type="number" class="form-control" id="participation_count" formControlName="participation_count"
+        [ngClass]="{ 'is-invalid': submitted && f['participation_count'].errors }">
+      <small class="text-danger" *ngIf="submitted && f['participation_count'].errors">
+        Please enter a number between 1 and 10.
+      </small>
+    </div>
+  </div>
+
+
+  <a class="link-primary collapse-link" *ngIf="showSecondChoiceLink && !isAdmin && !isApplicationSubmitted && f['previous_participation'].value === true" [class.disabled-link]="isApplicationSubmitted" (click)="showSecondChoice()">
     <i class="bi bi-plus-lg pe-2"></i>Previous participation in the Erasmus+ program
   </a>
 

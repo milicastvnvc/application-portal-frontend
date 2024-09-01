@@ -70,6 +70,8 @@ export class PersonalDetailsComponent implements OnInit {
       disadvantaged: [''],
       previous_host_institution: [''],
       mobility_dates: [''],
+      previous_participation: ['', Validators.required],
+      participation_count: ['', [Validators.min(1), Validators.max(10)]],
     });
 
     this.formGroup.patchValue({
@@ -100,6 +102,8 @@ export class PersonalDetailsComponent implements OnInit {
               passport: this.personalDetails.passport,
               previous_host_institution: this.personalDetails.previous_host_institution,
               mobility_dates: this.personalDetails.mobility_dates,
+              previous_participation: this.personalDetails.previous_participation,
+              participation_count: this.personalDetails.participation_count,
             });
           }
 
