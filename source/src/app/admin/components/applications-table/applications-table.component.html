@@ -8,6 +8,7 @@
         <th scope="col" class="col-lg-1 col-sm-1">Mobility</th>
         <th scope="col" class="col-lg-2 col-sm-1">Date submitted</th>
         <th scope="col" class="col-lg-2 col-sm-1">Application Status</th>
+        <th scope="col" class="col-lg-1 col-sm-1">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +26,12 @@
           truncate:[50, '...'] }}</td>
         <td>{{application.submitted_at | date}}</td>
         <td><app-application-status [status]="application.status"></app-application-status></td>
+        <td>
+          <button class="btn btn-danger" type="button" (click)="changeAction(application.id,$event)"
+          data-bs-toggle="modal" data-bs-target="#myModal">
+            Delete
+        </button>
+        </td>
       </tr>
 
     </tbody>
@@ -33,3 +40,10 @@
     <pagination-controls (pageChange)="onPageChange($event)" [maxSize]="maxPage"></pagination-controls>
   </div>
 </div>
+
+
+<app-modal
+  [modalBodyText]="'Are you sure you want to delete application?'"
+  [modalHeaderText]="'Please confirm'"
+  (confirmEvent)="confirmDelete()">
+</app-modal>

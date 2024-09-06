@@ -52,4 +52,10 @@ export class ApplicationService {
   changeApplicationStatus(application_id: number, status: ApplicationStatus): Observable<BaseResponse<string>> {
     return this.http.post<BaseResponse<string>>(this.apiURL + 'status', { application_id: application_id, status: status });
   }
+
+  deleteApplication(application_id: number): Observable<BaseResponse<string>> {
+    return this.http.delete<BaseResponse<string>>(this.apiURL + `${application_id}`);
+  }
+
+  
 }
