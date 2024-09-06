@@ -10,6 +10,8 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { AdminApplication } from '../../models/admin-application';
 import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 import { statusConstant } from '../../helpers/constants';
+import { Contest } from 'src/app/application/models/contest';
+import { ContestService } from 'src/app/application/services/contest.service';
 
 @Component({
   selector: 'app-users-applications',
@@ -27,22 +29,26 @@ export class UsersApplicationsComponent implements OnInit {
   mobilityId: number | undefined = undefined;
   homeInstitutionId: number | undefined = undefined;
   statusId: ApplicationStatus | undefined = undefined;
+  contests: Contest[] = [];
+  contestId: number | undefined = undefined;
 
   constructor(
     private applicationService: ApplicationService,
     private mobilityService: MobilityService,
     private homeInstitutionsService: HomeInstitutionsService,
-    private toastService: ToastService) { }
+    private toastService: ToastService,
+    private contestService: ContestService) { }
 
 
   ngOnInit(): void {
+    this.getAllContests();
     this.getAllMobilities();
     this.getAllHomeInstitutions();
     this.getAllApplications();
   }
 
   getAllApplications(): void {
-    this.applicationService.getAllApplications(this.currentPage, this.searchKey, this.mobilityId, this.homeInstitutionId, itemsPerPage, this.statusId).subscribe(
+    this.applicationService.getAllApplications(this.currentPage, this.searchKey, this.mobilityId, this.homeInstitutionId, itemsPerPage, this.statusId, this.contestId).subscribe(
       {
         next: (result) => {
           if (!result.success) {
@@ -86,6 +92,21 @@ export class UsersApplicationsComponent implements OnInit {
     )
   }
 
+  getAllContests(): void {
+    this.contestService.getAll().subscribe(
+      {
+        next: (result) => {
+          if (!result.success) {
+            this.toastService.showErrorsToast(result.errors);
+          }
+          else {
+            this.contests = result.data;
+          }
+        }
+      }
+    );
+  }
+
   changeMobility(e: any): void {
     this.currentPage = 1;
     this.mobilityId = e.target.value;
@@ -102,6 +123,13 @@ export class UsersApplicationsComponent implements OnInit {
     this.statusId = e.target.value;
     this.getAllApplications();
   }
+
+  changeContest(e: any): void {
+    this.currentPage = 1;
+    this.contestId = e.target.value;
+    this.getAllApplications();
+  }
+  
 
   search(): void {
     this.currentPage = 1;

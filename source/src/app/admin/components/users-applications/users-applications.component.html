@@ -10,6 +10,16 @@
       </div>
 
     </div>
+
+    <div class="col-lg-2 log-sm-2 mt-3">
+      <select class="form-select" aria-label="Default select example" (change)="changeContest($event)">
+        <option value="" selected>All contests</option>
+        <option *ngFor="let contest of contests" [value]="contest.id">
+          {{ contest.contest_name }} ({{ contest.start_date | date }} - {{ contest.end_date | date }})
+        </option>
+      </select>
+    </div>
+
     <div class="col-lg-2 log-sm-2 mt-3">
       <select class="form-select" aria-label="Default select example" (change)="changeMobility($event)">
         <option value="" selected>All mobilities</option>

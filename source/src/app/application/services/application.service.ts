@@ -18,7 +18,7 @@ export class ApplicationService {
 
   constructor(private http: HttpClient) { }
 
-  getAllApplications(page: number = 1, search_key: string = '', mobility_id: number | null = null, home_institution_id: number | null = null, per_page: number = 5, status: number | null = null): Observable<BaseResponse<PaginationResult<AdminApplication>>> {
+  getAllApplications(page: number = 1, search_key: string = '', mobility_id: number | null = null, home_institution_id: number | null = null, per_page: number = 5, status: number | null = null, contest_id: number | null = null): Observable<BaseResponse<PaginationResult<AdminApplication>>> {
     return this.http.get<BaseResponse<PaginationResult<AdminApplication>>>(this.apiURL + `getAll`,
       {
         params:
@@ -28,7 +28,8 @@ export class ApplicationService {
           search_key: search_key,
           mobility_id: mobility_id ? mobility_id: '',
           home_institution_id: home_institution_id ? home_institution_id : '',
-          status: status ? status : ''
+          status: status ? status : '',
+          contest_id: contest_id ? contest_id : ''
         }
       });
   }
