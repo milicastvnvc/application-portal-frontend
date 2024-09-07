@@ -26,11 +26,16 @@ export class UsersApplicationsComponent implements OnInit {
   allStatuses = statusConstant.slice(1);
   currentPage: number = 1;
   searchKey: string = '';
-  mobilityId: number | undefined = undefined;
-  homeInstitutionId: number | undefined = undefined;
-  statusId: ApplicationStatus | undefined = undefined;
+  mobilityId: number | null = null;
+  homeInstitutionId: number | null = null;
+  statusId: ApplicationStatus | null = null;
   contests: Contest[] = [];
-  contestId: number | undefined = undefined;
+  contestId: number | null = null;
+  selectedContestId: number | null = null;
+  selectedMobilityId: number | null = null;
+  selectedHomeInstitutionId: number | null = null;
+  selectedStatusId: number | null = null;
+
 
   constructor(
     private applicationService: ApplicationService,
@@ -44,6 +49,31 @@ export class UsersApplicationsComponent implements OnInit {
     this.getAllContests();
     this.getAllMobilities();
     this.getAllHomeInstitutions();
+    const savedContestId = localStorage.getItem('selectedContestId');
+    const savedMobilityId = localStorage.getItem('selectedMobilityId');
+    const savedHomeInstitutionId = localStorage.getItem('selectedHomeInstitutionId');
+    const savedStatusId = localStorage.getItem('selectedStatusId');
+   
+    if (savedContestId) {
+      this.selectedContestId = +savedContestId;
+      this.contestId = this.selectedContestId; // Postavi sačuvani konkurs
+    }
+
+    if (savedMobilityId) {
+      this.selectedMobilityId = +savedMobilityId;
+      this.mobilityId = this.selectedMobilityId;
+    }
+
+    if (savedHomeInstitutionId) {
+      this.selectedHomeInstitutionId = +savedHomeInstitutionId;
+      this.homeInstitutionId = this.selectedHomeInstitutionId;
+    }
+
+    if (savedStatusId) {
+      this.selectedStatusId = +savedStatusId;
+      this.statusId = this.selectedStatusId;
+    }
+
     this.getAllApplications();
   }
 
@@ -109,24 +139,32 @@ export class UsersApplicationsComponent implements OnInit {
 
   changeMobility(e: any): void {
     this.currentPage = 1;
-    this.mobilityId = e.target.value;
+    this.selectedMobilityId = e.target.value === 'null' ? null : +e.target.value;
+    this.mobilityId = this.selectedMobilityId;
+    localStorage.setItem('selectedMobilityId', this.selectedMobilityId?.toString() || '');
     this.getAllApplications();
   }
 
   changeHomeInstitution(e: any): void {
     this.currentPage = 1;
-    this.homeInstitutionId = e.target.value;
+    this.selectedHomeInstitutionId = e.target.value === 'null' ? null : +e.target.value;
+    this.homeInstitutionId = this.selectedHomeInstitutionId;
+    localStorage.setItem('selectedHomeInstitutionId', this.selectedHomeInstitutionId?.toString() || '');
     this.getAllApplications();
   }
   changeApplicationStatus(e: any): void {
     this.currentPage = 1;
-    this.statusId = e.target.value;
+    this.selectedStatusId = e.target.value === 'null' ? null : +e.target.value;
+    this.statusId = this.selectedStatusId;
+    localStorage.setItem('selectedStatusId', this.selectedStatusId?.toString() || '');
     this.getAllApplications();
   }
 
   changeContest(e: any): void {
     this.currentPage = 1;
-    this.contestId = e.target.value;
+    this.selectedContestId = e.target.value === 'null' ? null : +e.target.value;
+    this.contestId = this.selectedContestId;
+    localStorage.setItem('selectedContestId', this.selectedContestId?.toString() || '');
     this.getAllApplications();
   }
   

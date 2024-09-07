@@ -12,8 +12,8 @@
     </div>
 
     <div class="col-lg-2 log-sm-2 mt-3">
-      <select class="form-select" aria-label="Default select example" (change)="changeContest($event)">
-        <option value="" selected>All contests</option>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedContestId" (change)="changeContest($event)">
+        <option value="null" selected>All contests</option>
         <option *ngFor="let contest of contests" [value]="contest.id">
           {{ contest.contest_name }} ({{ contest.start_date | date }} - {{ contest.end_date | date }})
         </option>
@@ -21,23 +21,23 @@
     </div>
 
     <div class="col-lg-2 log-sm-2 mt-3">
-      <select class="form-select" aria-label="Default select example" (change)="changeMobility($event)">
-        <option value="" selected>All mobilities</option>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedMobilityId" (change)="changeMobility($event)">
+        <option value="null" selected>All mobilities</option>
         <option *ngFor="let type of mobilities" [value]="type.id">{{type.name}} ({{type.description}})</option>
         <option [value]="'other'">Other</option>
       </select>
     </div>
 
     <div class="col-lg-3 log-sm-3 mt-3">
-      <select class="form-select" aria-label="Default select example" (change)="changeHomeInstitution($event)">
-        <option value="" selected>All home institutions</option>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedHomeInstitutionId" (change)="changeHomeInstitution($event)">
+        <option value="null" selected>All home institutions</option>
         <option *ngFor="let institution of homeInstitutions" [value]="institution.id">{{institution.name}}
         </option>
       </select>
     </div>
     <div class="col-lg-2 log-sm-2 mt-3">
-      <select class="form-select" aria-label="Default select example" (change)="changeApplicationStatus($event)">
-        <option value="" selected>All statuses</option>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedStatusId" (change)="changeApplicationStatus($event)">
+        <option value="null" selected>All statuses</option>
         <option *ngFor="let status of allStatuses" [value]="status.id">{{status.label}}
         </option>
       </select>
