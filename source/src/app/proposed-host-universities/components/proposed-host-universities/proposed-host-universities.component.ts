@@ -33,6 +33,7 @@ export class ProposedHostUniversitiesComponent implements OnInit, AfterViewInit,
   eventFunction: any;
   isApplicationSubmitted: boolean = false;
   isAdmin: boolean = false;
+  isCoordinator: boolean = false;
   activeSemesters: Semester[] = [];
   institution: string = "university";
   department:string = "Department";
@@ -53,6 +54,7 @@ export class ProposedHostUniversitiesComponent implements OnInit, AfterViewInit,
 
     this.formInfo = this.route.snapshot.data['form_info'];
     this.isAdmin = this.accountService.isAdmin();
+    this.isCoordinator = this.accountService.isCoordinator();
 
     this.bsCollapse = new bootstrap.Collapse('#collapseSecondChoice', {
       toggle: false

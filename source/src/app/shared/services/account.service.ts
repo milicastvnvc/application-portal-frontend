@@ -41,4 +41,13 @@ export class AccountService {
     }
     return false;
   }
+
+  isCoordinator(): boolean {
+    const userData = this.getUserData();
+    if (userData) {
+      if (userData.roles.includes(Role.Coordinator))
+        return true;
+    }
+    return false;
+  }
 }

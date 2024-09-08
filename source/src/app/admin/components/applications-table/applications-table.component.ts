@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Application } from 'src/app/application/models/application';
 import { ApplicationService } from 'src/app/application/services/application.service';
 import { itemsPerPage, maxPage } from 'src/app/shared/helpers/constants';
+import { AccountService } from 'src/app/shared/services/account.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { AdminApplication } from '../../models/admin-application';
 
@@ -31,10 +32,13 @@ export class ApplicationsTableComponent implements OnInit {
 
   selectedApplicationId!: number;
 
-  constructor(private applicationService: ApplicationService,private router: Router,private toastService: ToastService) {}
+  isAdmin: boolean = false;
+
+  constructor(private applicationService: ApplicationService,private router: Router,private toastService: ToastService, private accountService: AccountService) {}
 
   ngOnInit(): void {
     console.log(this.applications);
+    this.isAdmin = this.accountService.isAdmin();
   }
 
   onPageChange(number: number) {

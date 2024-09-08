@@ -36,6 +36,7 @@ export class ApplicationDataComponent implements OnInit {
   protected applicationFormGroup!: FormGroup;
   canSubmit: boolean = true;
   isAdmin: boolean = false;
+  isCoordinator: boolean = false;
   subheading: string = 'Doctorate (mobility)';
 
   constructor(private formBuilder: FormBuilder,
@@ -49,6 +50,9 @@ export class ApplicationDataComponent implements OnInit {
   ngOnInit(): void {
 
     this.isAdmin = this.accountService.isAdmin();
+    this.isCoordinator = this.accountService.isCoordinator();
+    console.log("is admin",this.isAdmin);
+    console.log("is coordinator",this.isCoordinator);
 
     this.applicationFormGroup = this.formBuilder.group({
       published_name: ['', [Validators.requiredTrue]],

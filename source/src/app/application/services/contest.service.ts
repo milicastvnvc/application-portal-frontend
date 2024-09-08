@@ -11,7 +11,7 @@ import { Contest } from '../models/contest';
 export class ContestService {
   
   // private apiURL = '/api/contests';
-  apiURL = environment.apiURL + '/contests';
+  apiURL = environment.apiURL + '/contests/';
 
   constructor(private http: HttpClient) { }
 

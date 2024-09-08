@@ -1,7 +1,8 @@
 <app-main-card [title]="'Application Data'"
 [isAdmin]="isAdmin"
+[isCoordinator]="isCoordinator"
 [application_id]="applicationId"
-[headerText]="isAdmin && application != undefined ? application.user.email : ''">
+[headerText]="(isAdmin || isCoordinator) && application != undefined ? application.user.email : ''">
 
   <h5 class="text-start text-secondary">{{ subheading }}</h5>
 

@@ -18,6 +18,7 @@ export class NavbarComponent {
   bsCollapse!: Collapse;
   user: User | undefined;
   isAdmin:boolean = false;
+  isCoordinator:boolean = false;
   uniLogo: string = '../../../../assets/' + uniLogo;
   erasmusLogo: string = '../../../../assets/' + erasmusLogo;
 
@@ -37,12 +38,14 @@ export class NavbarComponent {
           this.refreshIsLoggedIn();
           this.user = this.accountService.getUserData();
           this.isAdmin = this.accountService.isAdmin();
+          this.isCoordinator = this.accountService.isCoordinator();
       }
     });
 
     this.refreshIsLoggedIn();
     this.user = this.accountService.getUserData();
     this.isAdmin = this.accountService.isAdmin();
+    this.isCoordinator = this.accountService.isCoordinator();
   }
 
   refreshIsLoggedIn(): void {

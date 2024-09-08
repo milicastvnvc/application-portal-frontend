@@ -15,10 +15,12 @@ export class SubmitButtonComponent implements OnInit {
   buttonText: string = '';
 
   isAdmin:boolean = false;
+  isCoordinator:boolean = false;
 
   constructor(private accountService: AccountService) {}
 
   ngOnInit() {
     this.isAdmin = this.accountService.isAdmin();
+    this.isCoordinator = this.accountService.isCoordinator();
   }
 }

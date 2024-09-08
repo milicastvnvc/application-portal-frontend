@@ -1,6 +1,6 @@
-<app-main-card [title]="'Application Form'" [subtitle]="'Personal details'" [isAdmin]="isAdmin"
+<app-main-card [title]="'Application Form'" [subtitle]="'Personal details'" [isAdmin]="isAdmin" [isCoordinator]="isCoordinator"
   [application_id]="application?.id" [form_name]="this.formInfo.id"
-  [headerText]="isAdmin && application != undefined ? application.user.email : ''">
+  [headerText]="(isAdmin || isCoordinator) && application != undefined ? application.user.email : ''">
 
   <form class="form-1-box" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 

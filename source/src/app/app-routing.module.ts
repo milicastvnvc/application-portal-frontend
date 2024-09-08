@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: "reset-password/:code", component: ResetPasswordComponent },
 
   //Forms
-  { path: "applications", component: DashboardComponent, canActivate: [AuthGuard], data: { roles: [Role.Applicant, Role.Admin] } },
+  { path: "applications", component: DashboardComponent, canActivate: [AuthGuard], data: { roles: [Role.Applicant, Role.Admin, Role.Coordinator] } },
   { path: "new-application", component: NewApplicationComponent, canActivate: [AuthGuard], data: { roles: [Role.Applicant] } },
   { path: "application-data/:id", component: ApplicationDataComponent, canActivate: [AuthGuard] },
   { path: "personal-details/:id", component: PersonalDetailsComponent, canActivate: [AuthGuard], data: { form_info: personalDetailsConstant } },

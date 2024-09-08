@@ -23,6 +23,9 @@ export class MainCardComponent {
   isAdmin: boolean = false;
 
   @Input()
+  isCoordinator: boolean = false;
+
+  @Input()
   application_id: number | undefined = undefined;
 
   @Input()

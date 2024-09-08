@@ -32,6 +32,7 @@ export class PersonalDetailsComponent implements OnInit {
   protected formGroup!: FormGroup;
   submitted = false;
   isAdmin: boolean = false;
+  isCoordinator: boolean = false;
 
   personalDetails: PersonalDetails | undefined = undefined;
   mTypes = MobilityType;
@@ -51,6 +52,7 @@ export class PersonalDetailsComponent implements OnInit {
 
     this.formInfo = this.route.snapshot.data['form_info'];
     this.isAdmin = this.accountService.isAdmin();
+    this.isCoordinator = this.accountService.isCoordinator();
 
     this.formGroup = this.formBuilder.group({
       application_id: [''],

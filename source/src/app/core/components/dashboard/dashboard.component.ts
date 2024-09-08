@@ -9,11 +9,13 @@ import { AccountService } from 'src/app/shared/services/account.service';
 export class DashboardComponent implements OnInit {
 
   isAdmin:boolean | undefined = undefined;
+  isCoordinator:boolean | undefined = undefined;
 
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.isAdmin = this.accountService.isAdmin();
+    this.isCoordinator = this.accountService.isCoordinator();
   }
 
 }
