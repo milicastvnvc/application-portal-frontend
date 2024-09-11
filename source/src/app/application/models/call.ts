@@ -1,6 +1,6 @@
-export interface Contest {
+export interface Call {
     id: number;
-    contest_name: string;
+    call_name: string;
     start_date: Date;
     end_date: Date;
-  }
+}

@@ -10,8 +10,8 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { AdminApplication } from '../../models/admin-application';
 import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 import { statusConstant } from '../../helpers/constants';
-import { Contest } from 'src/app/application/models/contest';
-import { ContestService } from 'src/app/application/services/contest.service';
+import { Call } from 'src/app/application/models/call';
+import { CallService } from 'src/app/application/services/call.service';
 import { AccountService } from 'src/app/shared/services/account.service';
 
 @Component({
@@ -30,9 +30,9 @@ export class UsersApplicationsComponent implements OnInit {
   mobilityId: number | null = null;
   homeInstitutionId: number | null = null;
   statusId: ApplicationStatus | null = null;
-  contests: Contest[] = [];
-  contestId: number | null = null;
-  selectedContestId: number | null = null;
+  calls: Call[] = [];
+  callId: number | null = null;
+  selectedCallId: number | null = null;
   selectedMobilityId: number | null = null;
   selectedHomeInstitutionId: number | null = null;
   selectedStatusId: number | null = null;
@@ -44,7 +44,7 @@ export class UsersApplicationsComponent implements OnInit {
     private mobilityService: MobilityService,
     private homeInstitutionsService: HomeInstitutionsService,
     private toastService: ToastService,
-    private contestService: ContestService,
+    private callService: CallService,
     private accountService: AccountService) { }
 
 
@@ -59,7 +59,7 @@ export class UsersApplicationsComponent implements OnInit {
   }
 
   getAllApplications(): void {
-    this.applicationService.getAllApplications(this.currentPage, this.searchKey, this.mobilityId, this.homeInstitutionId, itemsPerPage, this.statusId, this.contestId).subscribe(
+    this.applicationService.getAllApplications(this.currentPage, this.searchKey, this.mobilityId, this.homeInstitutionId, itemsPerPage, this.statusId, this.callId).subscribe(
       {
         next: (result) => {
           if (!result.success) {
@@ -103,15 +103,15 @@ export class UsersApplicationsComponent implements OnInit {
     )
   }
 
-  getAllContests(): void {
-    this.contestService.getAll().subscribe(
+  getAllCalls(): void {
+    this.callService.getAll().subscribe(
       {
         next: (result) => {
           if (!result.success) {
             this.toastService.showErrorsToast(result.errors);
           }
           else {
-            this.contests = result.data;
+            this.calls = result.data;
           }
         }
       }
@@ -141,11 +141,11 @@ export class UsersApplicationsComponent implements OnInit {
     this.getAllApplications();
   }
 
-  changeContest(e: any): void {
+  changeCall(e: any): void {
     this.currentPage = 1;
-    this.selectedContestId = e.target.value === 'null' ? null : +e.target.value;
-    this.contestId = this.selectedContestId;
-    localStorage.setItem('selectedContestId', this.selectedContestId?.toString() || '');
+    this.selectedCallId = e.target.value === 'null' ? null : +e.target.value;
+    this.callId = this.selectedCallId;
+    localStorage.setItem('selectedCallId', this.selectedCallId?.toString() || '');
     this.getAllApplications();
   }
   
@@ -177,17 +177,17 @@ export class UsersApplicationsComponent implements OnInit {
   }
 
   loadInitialData(): void {
-    this.getAllContests();
+    this.getAllCalls();
     this.getAllMobilities();
     this.getAllHomeInstitutions();
-    const savedContestId = localStorage.getItem('selectedContestId');
+    const savedCallId = localStorage.getItem('selectedCallId');
     const savedMobilityId = localStorage.getItem('selectedMobilityId');
     const savedHomeInstitutionId = localStorage.getItem('selectedHomeInstitutionId');
     const savedStatusId = localStorage.getItem('selectedStatusId');
   
-    if (savedContestId) {
-      this.selectedContestId = +savedContestId;
-      this.contestId = this.selectedContestId; 
+    if (savedCallId) {
+      this.selectedCallId = +savedCallId;
+      this.callId = this.selectedCallId; 
     }
   
     if (savedMobilityId) {

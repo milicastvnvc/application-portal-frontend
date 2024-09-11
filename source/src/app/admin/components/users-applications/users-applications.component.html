@@ -12,10 +12,10 @@
     </div>
 
     <div class="col-lg-2 log-sm-2 mt-3">
-      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedContestId" (change)="changeContest($event)">
-        <option value="null" selected>All contests</option>
-        <option *ngFor="let contest of contests" [value]="contest.id">
-          {{ contest.contest_name }} ({{ contest.start_date | date }} - {{ contest.end_date | date }})
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedCallId" (change)="changeCall($event)">
+        <option value="null" selected>All calls</option>
+        <option *ngFor="let call of calls" [value]="call.id">
+          {{ call.call_name }} ({{ call.start_date | date }} - {{ call.end_date | date }})
         </option>
       </select>
     </div>
