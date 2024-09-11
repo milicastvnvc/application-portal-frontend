@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseResponse } from 'src/app/shared/models/base-response';
@@ -58,5 +58,8 @@ export class ApplicationService {
     return this.http.delete<BaseResponse<string>>(this.apiURL + `${application_id}`);
   }
 
+  getHomeInstitutionIdByUserId(userId: number): Observable<BaseResponse<number>> {
+    return this.http.get<BaseResponse<number>>(`${environment.apiURL}/user/${userId}/home-institution-id`);
+  }
   
 }

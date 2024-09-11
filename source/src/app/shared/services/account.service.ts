@@ -50,4 +50,12 @@ export class AccountService {
     }
     return false;
   }
+
+  getUserId(): number | undefined {
+    const userData = this.getUserData();
+    if (userData) {
+      return userData.id;
+    }
+    return undefined;
+  }
 }

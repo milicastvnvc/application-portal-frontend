@@ -12,6 +12,7 @@ import { ApplicationStatus } from 'src/app/shared/enums/application-status';
 import { statusConstant } from '../../helpers/constants';
 import { Contest } from 'src/app/application/models/contest';
 import { ContestService } from 'src/app/application/services/contest.service';
+import { AccountService } from 'src/app/shared/services/account.service';
 
 @Component({
   selector: 'app-users-applications',
@@ -35,6 +36,7 @@ export class UsersApplicationsComponent implements OnInit {
   selectedMobilityId: number | null = null;
   selectedHomeInstitutionId: number | null = null;
   selectedStatusId: number | null = null;
+  isCoordinator: boolean = false;
 
 
   constructor(
@@ -42,39 +44,18 @@ export class UsersApplicationsComponent implements OnInit {
     private mobilityService: MobilityService,
     private homeInstitutionsService: HomeInstitutionsService,
     private toastService: ToastService,
-    private contestService: ContestService) { }
+    private contestService: ContestService,
+    private accountService: AccountService) { }
 
 
   ngOnInit(): void {
-    this.getAllContests();
-    this.getAllMobilities();
-    this.getAllHomeInstitutions();
-    const savedContestId = localStorage.getItem('selectedContestId');
-    const savedMobilityId = localStorage.getItem('selectedMobilityId');
-    const savedHomeInstitutionId = localStorage.getItem('selectedHomeInstitutionId');
-    const savedStatusId = localStorage.getItem('selectedStatusId');
-   
-    if (savedContestId) {
-      this.selectedContestId = +savedContestId;
-      this.contestId = this.selectedContestId; // Postavi sačuvani konkurs
-    }
+    this.isCoordinator = this.accountService.isCoordinator(); 
 
-    if (savedMobilityId) {
-      this.selectedMobilityId = +savedMobilityId;
-      this.mobilityId = this.selectedMobilityId;
+    if (this.isCoordinator) {
+      this.getCoordinatorHomeInstitution();
+    } else {
+      this.loadInitialData();
     }
-
-    if (savedHomeInstitutionId) {
-      this.selectedHomeInstitutionId = +savedHomeInstitutionId;
-      this.homeInstitutionId = this.selectedHomeInstitutionId;
-    }
-
-    if (savedStatusId) {
-      this.selectedStatusId = +savedStatusId;
-      this.statusId = this.selectedStatusId;
-    }
-
-    this.getAllApplications();
   }
 
   getAllApplications(): void {
@@ -178,5 +159,55 @@ export class UsersApplicationsComponent implements OnInit {
     this.currentPage = pageNumber;
     this.getAllApplications();
   }
+
+  getCoordinatorHomeInstitution(): void {
+    const userId = this.accountService.getUserId();
+    this.applicationService.getHomeInstitutionIdByUserId(userId!).subscribe({
+      next: (result) => {
+        if (result.success) {
+          this.selectedHomeInstitutionId = result.data;
+          this.homeInstitutionId = this.selectedHomeInstitutionId;
+          localStorage.setItem('selectedHomeInstitutionId', this.selectedHomeInstitutionId?.toString() || '');
+          this.loadInitialData();
+        } else {
+          this.toastService.showErrorsToast(result.errors);
+        }
+      }
+    });
+  }
+
+  loadInitialData(): void {
+    this.getAllContests();
+    this.getAllMobilities();
+    this.getAllHomeInstitutions();
+    const savedContestId = localStorage.getItem('selectedContestId');
+    const savedMobilityId = localStorage.getItem('selectedMobilityId');
+    const savedHomeInstitutionId = localStorage.getItem('selectedHomeInstitutionId');
+    const savedStatusId = localStorage.getItem('selectedStatusId');
+  
+    if (savedContestId) {
+      this.selectedContestId = +savedContestId;
+      this.contestId = this.selectedContestId; 
+    }
+  
+    if (savedMobilityId) {
+      this.selectedMobilityId = +savedMobilityId;
+      this.mobilityId = this.selectedMobilityId;
+    }
+  
+    if (savedHomeInstitutionId) {
+      this.selectedHomeInstitutionId = +savedHomeInstitutionId;
+      this.homeInstitutionId = this.selectedHomeInstitutionId;
+    }
+  
+    if (savedStatusId) {
+      this.selectedStatusId = +savedStatusId;
+      this.statusId = this.selectedStatusId;
+    }
+  
+    this.getAllApplications();
+  }
+
+  
 
 }
