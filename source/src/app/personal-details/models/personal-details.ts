@@ -18,8 +18,16 @@ export interface PersonalDetails {
   email: string;
   alternative_email: string;
   disadvantaged: BinaryQuestion;
-  previous_host_institution: string;
-  mobility_dates: Date;
   previous_participation: boolean;
   participation_count?: number;
+  name_of_host_institution_1?: string;
+  mobility_date_1?: Date;
+  name_of_host_institution_2?: string;
+  mobility_date_2?: Date;
+  name_of_host_institution_3?: string;
+  mobility_date_3?: Date;
+  name_of_host_institution_4?: string;
+  mobility_date_4?: Date;
+  name_of_host_institution_5?: string;
+  mobility_date_5?: Date;
 }

@@ -70,10 +70,18 @@ export class PersonalDetailsComponent implements OnInit {
       email: ['', [Validators.required, emailValidator()]],
       alternative_email: [''],
       disadvantaged: [''],
-      previous_host_institution: [''],
-      mobility_dates: [''],
       previous_participation: ['', Validators.required],
       participation_count: ['', [Validators.min(1), Validators.max(10)]],
+      name_of_host_institution_1: [''],
+      mobility_date_1: [''],
+      name_of_host_institution_2: [''],
+      mobility_date_2: [''],
+      name_of_host_institution_3: [''],
+      mobility_date_3: [''],
+      name_of_host_institution_4: [''],
+      mobility_date_4: [''],
+      name_of_host_institution_5: [''],
+      mobility_date_5: [''],
     });
 
     this.formGroup.patchValue({
@@ -93,7 +101,6 @@ export class PersonalDetailsComponent implements OnInit {
             this.personalDetails = result.data.form;
             this.application = result.data.application;
 
-            // Update the formGroup with the fetched personal details
           if (this.personalDetails) {
             this.formGroup.patchValue({
               surname: this.personalDetails.surname,
@@ -102,10 +109,18 @@ export class PersonalDetailsComponent implements OnInit {
               birth_place: this.personalDetails.birth_place,
               gender: this.personalDetails.gender,
               passport: this.personalDetails.passport,
-              previous_host_institution: this.personalDetails.previous_host_institution,
-              mobility_dates: this.personalDetails.mobility_dates,
               previous_participation: this.personalDetails.previous_participation,
               participation_count: this.personalDetails.participation_count,
+              name_of_host_institution_1: this.personalDetails.name_of_host_institution_1,
+              mobility_date_1: this.personalDetails.mobility_date_1,
+              name_of_host_institution_2: this.personalDetails.name_of_host_institution_2,
+              mobility_date_2: this.personalDetails.mobility_date_2,
+              name_of_host_institution_3: this.personalDetails.name_of_host_institution_3,
+              mobility_date_3: this.personalDetails.mobility_date_3,
+              name_of_host_institution_4: this.personalDetails.name_of_host_institution_4,
+              mobility_date_4: this.personalDetails.mobility_date_4,
+              name_of_host_institution_5: this.personalDetails.name_of_host_institution_5,
+              mobility_date_5: this.personalDetails.mobility_date_5,
             });
           }
 

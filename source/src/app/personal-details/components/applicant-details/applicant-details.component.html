@@ -88,50 +88,37 @@
   <div class="row mb-3" *ngIf="f['previous_participation'].value === true">
     <label for="participation_count" class="col-sm-5 col-lg-2 col-form-label">How many times?</label>
     <div class="col-sm-7 col-lg-3">
-      <input type="number" class="form-control" id="participation_count" formControlName="participation_count"
-        [ngClass]="{ 'is-invalid': submitted && f['participation_count'].errors }">
+      <select id="participation_count" formControlName="participation_count" class="form-select" [ngClass]="{ 'is-invalid': submitted && f['participation_count'].errors }">
+        <option value="" selected>(Select option)</option>
+        <option *ngFor="let count of [1, 2, 3, 4, 5]" [value]="count">{{ count }}</option>
+      </select>
       <small class="text-danger" *ngIf="submitted && f['participation_count'].errors">
-        Please enter a number between 1 and 10.
+        Please enter a number between 1 and 5.
       </small>
     </div>
   </div>
 
-
-  <a class="link-primary collapse-link" *ngIf="showSecondChoiceLink && !isAdmin && !isApplicationSubmitted && f['previous_participation'].value === true" [class.disabled-link]="isApplicationSubmitted" (click)="showSecondChoice()">
-    <i class="bi bi-plus-lg pe-2"></i>Previous participation in the Erasmus+ program
-  </a>
-
-  <fieldset class="collapse border-top border-bottom p-2 pb-4 mb-2" id="collapseSecondChoice">
+  <fieldset class="border-top border-bottom p-2 pb-4 mb-2" *ngIf="f['previous_participation'].value === true && f['participation_count'].value > 0">
     <legend class="float-none w-auto px-2">Previous participation in the Erasmus+ program</legend>
-  
-    <a class="link-primary collapse-link" *ngIf="!isAdmin" [class.disabled-link]="isApplicationSubmitted" (click)="hideSecondChoice()">
-      <i class="bi bi-x-lg pe-2"></i>Remove previous participation in the Erasmus+ program
-    </a>
-  
-    <div class="col-md-8 col-sm-10">
-      <label for="previous_host_institution" class="col-form-label">Name of host institution</label>
-      <div class="col-sm-10 col-lg-8">
-        <input type="text" class="form-control" id="previous_host_institution"
-          formControlName="previous_host_institution"
-          [ngClass]="{ 'is-invalid': submitted && f['previous_host_institution'].errors }" [attr.disabled]="isAdmin ? true : null">
-        <small class="text-danger" *ngIf="submitted && f['previous_host_institution'].errors">
-          Host institution name is missing.
-        </small>
+    <div *ngFor="let item of getCount(f['participation_count'].value); let index = index">
+      <div class="row mb-3">
+        <label [for]="'name_of_host_institution_' + (index + 1)" class="col-sm-5 col-lg-2 col-form-label">Name of host institution {{ index + 1 }}</label>
+        <div class="col-sm-7 col-lg-5">
+          <input type="text" class="form-control" [id]="'name_of_host_institution_' + (index + 1)" [formControlName]="'name_of_host_institution_' + (index + 1)" [ngClass]="{ 'is-invalid': submitted && f['name_of_host_institution_' + (index + 1)].errors }">
+          <small class="text-danger" *ngIf="submitted && f['name_of_host_institution_' + (index + 1)].errors">Host institution name is required</small>
+        </div>
       </div>
-    </div>
-  
-    <div class="col-md-8 col-sm-10">
-      <label for="mobility_dates" class="col-form-label">Mobility Date</label>
-      <div class="col-sm-10 col-lg-8">
-        <input type="date" class="form-control" id="mobility_dates" formControlName="mobility_dates"
-          [ngClass]="{ 'is-invalid': submitted && f['mobility_dates'].errors }" [attr.disabled]="isAdmin ? true : null">
-        <small class="text-danger" *ngIf="submitted && f['mobility_dates'].errors">Date is missing.
-        </small>
+      <div class="row mb-3">
+        <label [for]="'mobility_date_' + (index + 1)" class="col-sm-5 col-lg-2 col-form-label">Mobility Date {{ index + 1 }}</label>
+        <div class="col-sm-7 col-lg-5">
+          <input type="date" class="form-control" [id]="'mobility_date_' + (index + 1)" [formControlName]="'mobility_date_' + (index + 1)" [ngClass]="{ 'is-invalid': submitted && f['mobility_date_' + (index + 1)].errors }">
+          <small class="text-danger" *ngIf="submitted && f['mobility_date_' + (index + 1)].errors">Mobility date is required</small>
+        </div>
       </div>
     </div>
   </fieldset>
   
-
+  
 </app-fieldset>
 
 
