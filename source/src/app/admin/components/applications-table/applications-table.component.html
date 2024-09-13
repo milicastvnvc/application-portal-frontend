@@ -8,6 +8,7 @@
         <th scope="col" class="col-lg-1 col-sm-1">Mobility</th>
         <th scope="col" class="col-lg-2 col-sm-1">Date submitted</th>
         <th scope="col" class="col-lg-2 col-sm-1">Application Status</th>
+        <th scope="col" class="col-lg-2 col-sm-1">Score (max 60)</th>
         <th scope="col" class="col-lg-1 col-sm-1" *ngIf="isAdmin">Action</th>
       </tr>
     </thead>
@@ -26,6 +27,7 @@
           truncate:[50, '...'] }}</td>
         <td>{{application.submitted_at | date}}</td>
         <td><app-application-status [status]="application.status"></app-application-status></td>
+        <td>{{ application.score }}</td>
         <td *ngIf="isAdmin">
           <button class="btn btn-danger" type="button" (click)="changeAction(application.id,$event)"
           data-bs-toggle="modal" data-bs-target="#myModal">

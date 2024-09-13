@@ -5,7 +5,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Application } from '../../models/application';
 import { ApplicationProgress } from '../../models/application-progress';
-import { completed, edit, not_completed } from 'src/app/shared/helpers/constants';
+import { completed, edit, evaluate, not_completed } from 'src/app/shared/helpers/constants';
 import { progressConstant, proposedHostUniversitiesConstant } from '../../helpers/constants';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { shouldDisableForm } from 'src/app/shared/helpers/disabled-form';
@@ -31,12 +31,15 @@ export class ApplicationDataComponent implements OnInit {
   completed: string = '../../../../assets/' + completed;
   not_completed: string = '../../../../assets/' + not_completed;
   edit: string = '../../../../assets/' + edit;
+  evaluate: string = '../../../../assets/' + evaluate;
 
   applicationId: number | undefined;
   protected applicationFormGroup!: FormGroup;
   canSubmit: boolean = true;
   isAdmin: boolean = false;
   isCoordinator: boolean = false;
+  coordinatorHomeInstitutionId: number | undefined;
+  applicationHomeInstitutionId: number | undefined;
   subheading: string = 'Doctorate (mobility)';
 
   constructor(private formBuilder: FormBuilder,
@@ -59,11 +62,29 @@ export class ApplicationDataComponent implements OnInit {
       collect_personal_info: ['', [Validators.requiredTrue]]
     });
 
+    if (this.isCoordinator) {
+      this.getCoordinatorInstitution();
+    }
+
     this.applicationId = routeCheck(this.route);
 
     if (!this.applicationId) this.router.navigate(['not-found']);
 
     this.getApplicationById();
+  }
+
+  getCoordinatorInstitution(): void {
+    const userId = this.accountService.getUserId();
+    if (userId) {
+      this.applicationService.getHomeInstitutionIdByUserId(userId).subscribe({
+        next: (result) => {
+          if (result.success) {
+            this.coordinatorHomeInstitutionId = result.data;
+            // console.log("coordinatorHomeInstitutionId",this.coordinatorHomeInstitutionId);
+          }
+        }
+      });
+    }
   }
 
   getApplicationById(): void {
@@ -73,6 +94,8 @@ export class ApplicationDataComponent implements OnInit {
           if (result.success) {
             this.application = result.data;
             this.progress = this.application.progress;
+            // console.log(this.application.home_institution_id);
+            this.applicationHomeInstitutionId = this.application.home_institution_id;
 
             if (this.application.mobility)
             {

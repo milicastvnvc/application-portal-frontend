@@ -19,6 +19,7 @@ import { DocumentsUploadComponent } from './documents-upload/components/document
 import { Role } from './shared/enums/role';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { documentsUploadConstant, homeInstitutionConstant, motivationAndAddedValueConstant, personalDetailsConstant, proposedHostUniversitiesConstant } from './application/helpers/constants';
+import { ApplicationEvaluationComponent } from './application/components/application-evaluation/application-evaluation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: "/applications", pathMatch: "full" },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: "proposed-host-universities/:id", component: ProposedHostUniversitiesComponent, canActivate: [AuthGuard], data: { form_info: proposedHostUniversitiesConstant } },
   { path: "motivation-and-added-value/:id", component: MotivationAndAddedValueComponent, canActivate: [AuthGuard], data: { form_info: motivationAndAddedValueConstant } },
   { path: "documents-upload/:id", component: DocumentsUploadComponent, canActivate: [AuthGuard], data: { form_info: documentsUploadConstant } },
+  { path: "application-evaluation/:id", component: ApplicationEvaluationComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.Coordinator] } },
 
   { path: 'forbidden', component: ForbiddenComponent },
   { path: '**', pathMatch: 'full', component: NotFoundComponent }

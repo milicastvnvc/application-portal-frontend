@@ -4,6 +4,7 @@ export const not_completed: string = 'x-button.png';
 export const edit: string = "edit.png";
 export const erasmusLogo: string = 'erasmus_logo.png';
 export const uniLogo: string = 'unkg.png';
+export const evaluate: string = 'evaluation-icon.png';
 
 //Toast Messages
 export const server_error_message = "An unexpected error occurred on the server while processing your request. Please try again later or contact our support team for assistance.";

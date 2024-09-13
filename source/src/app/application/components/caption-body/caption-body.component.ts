@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { completed, edit, not_completed } from 'src/app/shared/helpers/constants';
+import { completed, edit, evaluate, not_completed } from 'src/app/shared/helpers/constants';
 
 @Component({
   selector: 'app-caption-body',
@@ -11,4 +11,5 @@ export class CaptionBodyComponent {
   completed: string = '../../../../assets/' + completed;
   not_completed: string = '../../../../assets/' + not_completed;
   unlocked: string ='../../../../assets/' + edit;
+  evaluate: string = '../../../../assets/' + evaluate;
 }

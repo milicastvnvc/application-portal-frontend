@@ -25,8 +25,17 @@
           <a class="link-primary" [routerLink]="[constant.route, applicationId]">{{constant.name}}</a>
         </td>
       </tr>
+      <tr>
+        <td *ngIf="isAdmin || (isCoordinator && coordinatorHomeInstitutionId === applicationHomeInstitutionId)">
+          <img src="{{ evaluate }}" alt="" class="pe-2 evaluate-icon">
+          <a class="link-primary" [routerLink]="['/application-evaluation', applicationId]">Evaluate applicant</a>
+        </td>
+      </tr>
     </tbody>
   </table>
+
+  
+  
 
   <app-caption></app-caption>
 
@@ -80,4 +89,6 @@
 
   <app-admin-application-buttons *ngIf="isAdmin" [application_id]="applicationId">
   </app-admin-application-buttons>
+
+  <app-back-link [route]="['/applications']"></app-back-link>
 </app-main-card>

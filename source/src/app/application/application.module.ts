@@ -7,6 +7,7 @@ import { MyApplicationComponent } from './components/my-application/my-applicati
 import { CaptionComponent } from './components/caption/caption.component';
 import { CaptionBodyComponent } from './components/caption-body/caption-body.component';
 import { AdminApplicationButtonsComponent } from './components/admin-application-buttons/admin-application-buttons.component';
+import { ApplicationEvaluationComponent } from './components/application-evaluation/application-evaluation.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AdminApplicationButtonsComponent } from './components/admin-application
     MyApplicationComponent,
     CaptionComponent,
     CaptionBodyComponent,
-    AdminApplicationButtonsComponent
+    AdminApplicationButtonsComponent,
+    ApplicationEvaluationComponent
   ],
   imports: [
     SharedModule

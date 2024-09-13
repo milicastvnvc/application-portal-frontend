@@ -1,0 +1,152 @@
+<app-main-card [title]="'Evaluate Applicant'">
+    <form [formGroup]="evaluationForm" (ngSubmit)="onSubmit()">
+        <!-- Academic achievement and merit section -->
+        <app-fieldset [legend]="'Academic achievement and merit'">
+            <div class="row mb-3">
+                <label for="averageGrade" class="col-sm-4 col-lg-3 col-form-label">Average grade (max 25 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="averageGrade" type="number" class="form-control" formControlName="averageGrade" />
+                </div>
+                <div class="col-sm-4 col-lg-7 d-flex align-items-center">
+                    <i class="bi bi-info-circle text-primary me-2 align-self-start"></i>
+                    <small class="text-muted">
+                        This item is calculated by multiplying the average grade by 2.5.
+                    </small>
+                </div>
+                <small *ngIf="evaluationForm.get('averageGrade')?.hasError('max')" class="text-danger">
+                    Maximum value is 25.
+                </small>
+                <small *ngIf="evaluationForm.get('averageGrade')?.hasError('required')" class="text-danger">
+                    This field is required.
+                </small>
+            </div>
+
+            <div class="row mb-3">
+                <label for="additionalEngagement" class="col-sm-4 col-lg-3 col-form-label">Additional engagement (max 5 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="additionalEngagement" type="number" class="form-control" formControlName="additionalEngagement" />
+                </div>
+                <div class="col-sm-4 col-lg-7 d-flex align-items-center">
+                    <i class="bi bi-info-circle text-primary me-2 align-self-start"></i>
+                    <small class="text-muted">
+                        Evidence of additional engagement in other relevant categories (student competitions, international conferences, participation in international projects, Buddy Network, etc.). 
+                        1 point is awarded for each relevant piece of evidence.
+                    </small>
+                </div>
+                <small *ngIf="evaluationForm.get('additionalEngagement')?.hasError('max')" class="text-danger">
+                    Maximum value is 5.
+                </small>
+                <small *ngIf="evaluationForm.get('additionalEngagement')?.hasError('required')" class="text-danger">
+                    This field is required.
+                </small>
+            </div>
+
+            <div class="row mb-3">
+                <label for="yearLevelStudy" class="col-sm-4 col-lg-3 col-form-label">Year/Level of study (max 5 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="yearLevelStudy" type="number" class="form-control" formControlName="yearLevelStudy" />
+                </div>
+                <div class="col-sm-4 col-lg-7 d-flex align-items-center">
+                    <i class="bi bi-info-circle text-primary me-2 align-self-start"></i>
+                    <small class="text-muted">
+                        2nd year = 1 point; 3rd year = 2 points; 4th year = 3 points; Master's = 4 points; Doctorate = 5 points.
+                    </small>
+                </div>
+                <small *ngIf="evaluationForm.get('yearLevelStudy')?.hasError('max')" class="text-danger">
+                    Maximum value is 5.
+                </small>
+                <small *ngIf="evaluationForm.get('yearLevelStudy')?.hasError('required')" class="text-danger">
+                    This field is required.
+                </small>
+            </div>
+
+            <div class="row mb-3">
+                <label for="totalAchievement" class="col-sm-4 col-lg-3 col-form-label">TOTAL (max 35 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="totalAchievement" type="number" class="form-control" formControlName="totalAchievement" />
+                </div>
+            </div>
+        </app-fieldset>
+
+        <!-- Other section -->
+        <app-fieldset [legend]="'Other'">
+            <div class="row mb-3">
+                <label for="applicationQuality" class="col-sm-4 col-lg-3 col-form-label">Application Quality (max 10 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="applicationQuality" type="number" class="form-control" formControlName="applicationQuality" />
+                </div>
+                <div class="col-sm-4 col-lg-7 d-flex align-items-center">
+                    <i class="bi bi-info-circle text-primary me-2 align-self-start"></i>
+                    <small class="text-muted">
+                        Evaluate the quality of content in the motivational letter, CV, alignment of subjects at the home faculty and receiving institution, etc.
+                    </small>
+                </div>
+                <small *ngIf="evaluationForm.get('applicationQuality')?.hasError('max')" class="text-danger">
+                    Maximum value is 10.
+                </small>
+                <small *ngIf="evaluationForm.get('applicationQuality')?.hasError('required')" class="text-danger">
+                    This field is required.
+                </small>
+            </div>
+
+            <div class="row mb-3">
+                <label for="previousErasmusParticipation" class="col-sm-4 col-lg-3 col-form-label">Previous Erasmus Participation (max 10 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="previousErasmusParticipation" type="number" class="form-control" formControlName="previousErasmusParticipation" />
+                </div>
+                <div class="col-sm-4 col-lg-7 d-flex align-items-center">
+                    <i class="bi bi-info-circle text-primary me-2 align-self-start"></i>
+                    <small class="text-muted">
+                        0 mobility: 10 points; mobility in the previous year: -5 points; mobility in the previous two years: -4 points; mobility in the previous three years: -3 points; mobility in the previous four years: -2 points; mobility in the previous five years: -1 point. Note: Negative points are cumulative.
+                    </small>
+                </div>
+                <small *ngIf="evaluationForm.get('previousErasmusParticipation')?.hasError('max')" class="text-danger">
+                    Maximum value is 10.
+                </small>
+                <small *ngIf="evaluationForm.get('previousErasmusParticipation')?.hasError('required')" class="text-danger">
+                    This field is required.
+                </small>
+            </div>
+
+            <div class="row mb-3">
+                <label for="programLanguageSkills" class="col-sm-4 col-lg-3 col-form-label">Program Language Skills (max 5 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="programLanguageSkills" type="number" class="form-control" formControlName="programLanguageSkills" />
+                </div>
+                <div class="col-sm-4 col-lg-7 d-flex align-items-center">
+                    <i class="bi bi-info-circle text-primary me-2 align-self-start"></i>
+                    <small class="text-muted">
+                        B1 level = 1 point; B2 level = 2 points; C1 level = 3 points; C2 level = 4 points. Note: A student can only achieve a maximum of 5 points if they provide a relevant C1 and C2 certificate (according to the Common European Framework of Reference for Languages); relevant English language certificates include TEFL/TESOL, Cambridge Advanced Certificate in English (CAE), IELTS (International English Language Testing System).
+                    </small>
+                </div>
+                <small *ngIf="evaluationForm.get('programLanguageSkills')?.hasError('max')" class="text-danger">
+                    Maximum value is 5.
+                </small>
+                <small *ngIf="evaluationForm.get('programLanguageSkills')?.hasError('required')" class="text-danger">
+                    This field is required.
+                </small>
+            </div>
+
+            <div class="row mb-3">
+                <label for="totalOther" class="col-sm-4 col-lg-3 col-form-label">TOTAL (max 25 points)</label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="totalOther" type="number" class="form-control" formControlName="totalOther" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="overallResult" class="col-sm-4 col-lg-3 col-form-label"><b>Overall Result (max 60 points)</b></label>
+                <div class="col-sm-4 col-lg-2">
+                    <input id="overallResult" type="number" class="form-control" formControlName="overallResult" />
+                </div>
+            </div>
+        </app-fieldset>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="evaluationForm.invalid">Submit Evaluation</button>
+        </div>
+
+        <app-back-link [route]="['/application-data', applicationId]"></app-back-link>
+        
+    </form>
+</app-main-card>

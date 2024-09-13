@@ -16,6 +16,7 @@ export interface Application {
   home_institution: HomeInstitution;
   progress: ApplicationProgress;
   status: ApplicationStatus;
+  score: number;
   unlocked_forms: string[];
   created_at: Date;
   submitted_at?: Date;
