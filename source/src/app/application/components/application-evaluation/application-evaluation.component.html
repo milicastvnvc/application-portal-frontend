@@ -16,6 +16,9 @@
                 <small *ngIf="evaluationForm.get('averageGrade')?.hasError('max')" class="text-danger">
                     Maximum value is 25.
                 </small>
+                <small *ngIf="evaluationForm.get('averageGrade')?.hasError('min')" class="text-danger">
+                    The value cannot be negative.
+                </small>
                 <small *ngIf="evaluationForm.get('averageGrade')?.hasError('required')" class="text-danger">
                     This field is required.
                 </small>
@@ -36,6 +39,9 @@
                 <small *ngIf="evaluationForm.get('additionalEngagement')?.hasError('max')" class="text-danger">
                     Maximum value is 5.
                 </small>
+                <small *ngIf="evaluationForm.get('additionalEngagement')?.hasError('min')" class="text-danger">
+                    The value cannot be negative.
+                </small>
                 <small *ngIf="evaluationForm.get('additionalEngagement')?.hasError('required')" class="text-danger">
                     This field is required.
                 </small>
@@ -54,6 +60,9 @@
                 </div>
                 <small *ngIf="evaluationForm.get('yearLevelStudy')?.hasError('max')" class="text-danger">
                     Maximum value is 5.
+                </small>
+                <small *ngIf="evaluationForm.get('yearLevelStudy')?.hasError('min')" class="text-danger">
+                    The value cannot be negative.
                 </small>
                 <small *ngIf="evaluationForm.get('yearLevelStudy')?.hasError('required')" class="text-danger">
                     This field is required.
@@ -84,6 +93,9 @@
                 <small *ngIf="evaluationForm.get('applicationQuality')?.hasError('max')" class="text-danger">
                     Maximum value is 10.
                 </small>
+                <small *ngIf="evaluationForm.get('applicationQuality')?.hasError('min')" class="text-danger">
+                    The value cannot be negative.
+                </small>
                 <small *ngIf="evaluationForm.get('applicationQuality')?.hasError('required')" class="text-danger">
                     This field is required.
                 </small>
@@ -103,6 +115,9 @@
                 <small *ngIf="evaluationForm.get('previousErasmusParticipation')?.hasError('max')" class="text-danger">
                     Maximum value is 10.
                 </small>
+                <small *ngIf="evaluationForm.get('previousErasmusParticipation')?.hasError('min')" class="text-danger">
+                    The value cannot be negative.
+                </small>
                 <small *ngIf="evaluationForm.get('previousErasmusParticipation')?.hasError('required')" class="text-danger">
                     This field is required.
                 </small>
@@ -121,6 +136,9 @@
                 </div>
                 <small *ngIf="evaluationForm.get('programLanguageSkills')?.hasError('max')" class="text-danger">
                     Maximum value is 5.
+                </small>
+                <small *ngIf="evaluationForm.get('programLanguageSkills')?.hasError('min')" class="text-danger">
+                    The value cannot be negative.
                 </small>
                 <small *ngIf="evaluationForm.get('programLanguageSkills')?.hasError('required')" class="text-danger">
                     This field is required.
@@ -142,7 +160,13 @@
             </div>
         </app-fieldset>
 
-        <div class="d-flex justify-content-center mt-4">
+        <div [class.invisible]="!evaluationForm.invalid">
+            <span class="fs-5 fw-semibold text-danger row d-flex justify-content-center mt-2">
+                Form is invalid. Please check the highlighted fields and ensure all inputs are correct.
+            </span>
+          </div>
+
+        <div class="d-flex justify-content-center mt-2">
             <button type="submit" class="btn btn-primary btn-lg" [disabled]="evaluationForm.invalid">Submit Evaluation</button>
         </div>
 

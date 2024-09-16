@@ -19,13 +19,13 @@ export class ApplicationEvaluationComponent {
 
   ngOnInit(): void {
     this.evaluationForm = this.fb.group({
-      averageGrade: [0, [Validators.required, Validators.max(25)]],
-      additionalEngagement: [0, [Validators.required, Validators.max(5)]],
-      yearLevelStudy: [0, [Validators.required, Validators.max(5)]],
+      averageGrade: [0, [Validators.required, Validators.min(0), Validators.max(25)]],
+      additionalEngagement: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
+      yearLevelStudy: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
       totalAchievement: [{ value: 0, disabled: true }, Validators.required],
-      applicationQuality: [0, [Validators.required, Validators.max(10)]],
-      previousErasmusParticipation: [0, [Validators.required, Validators.max(10)]],
-      programLanguageSkills: [0, [Validators.required, Validators.max(5)]],
+      applicationQuality: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
+      previousErasmusParticipation: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
+      programLanguageSkills: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
       totalOther: [{ value: 0, disabled: true }, Validators.required],
       overallResult: [{ value: 0, disabled: true }, Validators.required]
     });
