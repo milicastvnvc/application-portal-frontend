@@ -112,6 +112,18 @@ export class UsersApplicationsComponent implements OnInit {
           }
           else {
             this.calls = result.data;
+            // Sort calls by start_date in descending order
+            this.calls.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
+
+          // Set the selected call to the last one by start_date
+            if (this.calls.length > 0) {
+              this.selectedCallId = this.calls[0].id;
+              this.callId = this.selectedCallId;
+              localStorage.setItem('selectedCallId', this.selectedCallId?.toString() || '');
+            }
+
+            // Refresh applications with the new selected call
+            this.getAllApplications();
           }
         }
       }
