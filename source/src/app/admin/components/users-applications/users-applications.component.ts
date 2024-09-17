@@ -66,7 +66,17 @@ export class UsersApplicationsComponent implements OnInit {
             this.toastService.showErrorsToast(result.errors);
           }
           else {
+            // this.paginatedResult = result.data;
+            // console.log("paginated",this.paginatedResult);
+            result.data.data = result.data.data.map((application: AdminApplication) => {
+              if (!application.personal_details) {
+                application.personal_details = { application_id: 0, fornames: 'N/A', surname: 'N/A' };
+              }
+              return application;
+            });
+  
             this.paginatedResult = result.data;
+            // console.log("paginated", this.paginatedResult);
           }
         }
       }

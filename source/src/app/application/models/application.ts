@@ -17,6 +17,7 @@ export interface Application {
   progress: ApplicationProgress;
   status: ApplicationStatus;
   score: number;
+  call_id: number;
   unlocked_forms: string[];
   created_at: Date;
   submitted_at?: Date;

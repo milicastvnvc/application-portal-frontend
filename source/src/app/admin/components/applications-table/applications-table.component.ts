@@ -37,7 +37,7 @@ export class ApplicationsTableComponent implements OnInit {
   constructor(private applicationService: ApplicationService,private router: Router,private toastService: ToastService, private accountService: AccountService) {}
 
   ngOnInit(): void {
-    console.log(this.applications);
+    console.log("aplikacije:",this.applications);
     this.isAdmin = this.accountService.isAdmin();
   }
 
@@ -62,11 +62,8 @@ export class ApplicationsTableComponent implements OnInit {
       .subscribe(
         (response) => {
           if (response.success) {
-            this.loadApplications();
+            this.pageChangeEmitter.emit(this.currentPage);
             this.toastService.showSuccessToast('Application deleted successfully');
-              setTimeout(() => {
-                // console.log('Application deleted successfully');
-              }, 1000);
           } else {
             this.toastService.showErrorsToast(response.errors);
           }
@@ -76,22 +73,6 @@ export class ApplicationsTableComponent implements OnInit {
         }
       );
   }
-
-  loadApplications(): void {
-  this.applicationService.getAllApplications().subscribe(
-    (response) => {
-      if (response.success) {
-        this.applications = response.data.data; // Adjust based on your actual response structure
-
-      } else {
-        console.error('Failed to load applications:', response.errors);
-      }
-    },
-    (error) => {
-      console.error('Error loading applications:', error);
-    }
-  );
-}
 
   
 }
