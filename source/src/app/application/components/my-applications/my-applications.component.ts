@@ -34,7 +34,9 @@ export class MyApplicationsComponent implements OnInit {
     this.applicationService.getMyApplications().subscribe(
       {
         next: (result) => {
-          this.applications = result.data;
+          this.applications = result.data.sort((a, b) => {
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          });
 
           this.completedLength = this.applications.filter(app => {
             return app.status == ApplicationStatus.Completed;
