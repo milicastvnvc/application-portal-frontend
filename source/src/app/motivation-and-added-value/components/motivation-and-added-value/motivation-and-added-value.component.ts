@@ -114,6 +114,7 @@ export class MotivationAndAddedValueComponent implements OnInit {
             this.setForm();
             this.toastService.showSuccessToast('Successfully updated motivation and added value.');
             this.formGroup.markAsPristine();
+            this.router.navigate(['/application-data', this.applicationId]);
           }
           else {
             this.toastService.showErrorsToast(result.errors);

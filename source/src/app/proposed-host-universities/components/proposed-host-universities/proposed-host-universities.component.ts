@@ -172,6 +172,7 @@ export class ProposedHostUniversitiesComponent implements OnInit, AfterViewInit,
             this.toastService.showSuccessToast('Successfully updated proposed host universities');
             this.updateForm();
             this.formGroup.markAsPristine();
+            this.router.navigate(['/application-data', this.applicationId]);
           }
           else {
             this.toastService.showErrorsToast(result.errors);

@@ -139,6 +139,7 @@ export class HomeInstitutionComponent implements OnInit {
             this.homeInstitution = result.data;
             this.toastService.showSuccessToast('Successfully updated home institution');
             this.formGroup.markAsPristine();
+            this.router.navigate(['/application-data', this.applicationId]);
           }
           else {
             this.toastService.showErrorsToast(result.errors);

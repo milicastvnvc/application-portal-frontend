@@ -154,6 +154,7 @@ export class PersonalDetailsComponent implements OnInit {
             this.personalDetails = result.data;
             this.toastService.showSuccessToast('Successfully updated personal details');
             this.formGroup.markAsPristine();
+            this.router.navigate(['/application-data', this.applicationId]);
           }
           else {
             this.toastService.showErrorsToast(result.errors);
